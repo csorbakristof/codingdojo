@@ -9,7 +9,7 @@ namespace _20180806SpirographTests
     [TestClass]
     public class StrokeTests
     {
-        Stroke stroke = new Stroke();
+        PolyStroke stroke = new PolyStroke();
 
         [TestMethod]
         public void PointStorage()
