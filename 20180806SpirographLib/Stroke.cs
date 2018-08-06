@@ -25,5 +25,17 @@ namespace _20180806SpirographLib
         {
             return points.GetEnumerator();
         }
+
+        public void AddPointsBetween(Point start, Point end)
+        {
+            points.Add(start);
+            Point p = start;
+            while(p != end)
+            {
+                p.X += Math.Sign(end.X - p.X);
+                p.Y += Math.Sign(end.Y - p.Y);
+                points.Add(p);
+            }
+        }
     }
 }
