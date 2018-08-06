@@ -61,6 +61,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimationStrokeTests.cs" />
     <Compile Include="DrawerTests.cs" />
     <Compile Include="InterpolatingStrokeTests.cs" />
     <Compile Include="PointListsHelper.cs" />

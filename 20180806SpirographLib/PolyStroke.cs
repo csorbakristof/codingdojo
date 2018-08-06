@@ -7,7 +7,7 @@ namespace _20180806SpirographLib
 {
     public class PolyStroke : Stroke
     {
-        private List<SPoint> points = new List<SPoint>();
+        protected List<SPoint> points = new List<SPoint>();
 
         public PolyStroke()
         {
