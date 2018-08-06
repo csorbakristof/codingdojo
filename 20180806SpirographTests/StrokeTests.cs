@@ -32,6 +32,17 @@ namespace _20180806SpirographTests
         }
 
         [TestMethod]
+        public void ColorInterpolation()
+        {
+            var p1 = new SPoint(0, 0, new Vec3b(0,0,0));
+            var pTest = new SPoint(5, 0, new Vec3b(10, 10, 10));
+            var p2 = new SPoint(10, 0, new Vec3b(20, 20, 20));
+            var stroke = new InterpolatingStroke(
+                new PolyStroke(new SPoint[] { p1, p2 }));
+            AssertPointPresence(stroke, new SPoint[] { p1, pTest, p2 });
+        }
+
+        [TestMethod]
         public void Rotate()
         {
             var p1 = new SPoint(0, 0);

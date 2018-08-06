@@ -7,7 +7,7 @@ namespace _20180806SpirographLib
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public Vec3b Color { get; set; }
+        public Vec3b Color;
 
         public SPoint(int x, int y)
         {
@@ -53,6 +53,11 @@ namespace _20180806SpirographLib
             hashCode = hashCode * -1521134295 + Y.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<Vec3b>.Default.GetHashCode(Color);
             return hashCode;
+        }
+
+        public override string ToString()
+        {
+            return $"SPoint({X},{Y},color({Color.Item0},{Color.Item1},{Color.Item2}))";
         }
     }
 }
