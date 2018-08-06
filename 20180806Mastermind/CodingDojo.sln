@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180806SpirographLib", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180806SpirographTests", "..\20180806SpirographTests\20180806SpirographTests.csproj", "{F3B0BAF4-8F0B-4D04-B753-B9065060EC7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180806Spirograph", "..\20180806Spirograph\20180806Spirograph.csproj", "{9CDA14DE-0DC1-403F-AF9A-CD0CDCFA0A55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{F3B0BAF4-8F0B-4D04-B753-B9065060EC7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3B0BAF4-8F0B-4D04-B753-B9065060EC7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3B0BAF4-8F0B-4D04-B753-B9065060EC7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CDA14DE-0DC1-403F-AF9A-CD0CDCFA0A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CDA14DE-0DC1-403F-AF9A-CD0CDCFA0A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CDA14DE-0DC1-403F-AF9A-CD0CDCFA0A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CDA14DE-0DC1-403F-AF9A-CD0CDCFA0A55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F3FA5AE8-20A1-42C6-A482-1D5C8EA4800A} = {07143015-1933-4390-90EC-86F5CA638878}
 		{F3B0BAF4-8F0B-4D04-B753-B9065060EC7B} = {07143015-1933-4390-90EC-86F5CA638878}
+		{9CDA14DE-0DC1-403F-AF9A-CD0CDCFA0A55} = {07143015-1933-4390-90EC-86F5CA638878}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95CACFF0-72ED-4B76-B177-4E49BF339AA3}
