@@ -56,7 +56,6 @@ namespace _20180806SpirographTests
             var dashed = new DashedStroke(s, 2);
             Assert.AreEqual(2, dashed.Count());
             AssertPointSinglePresence(dashed, new Point[] {p1, p3});
-
         }
 
         private Point Shift(Point basePoint, int xShift, int yShift)
