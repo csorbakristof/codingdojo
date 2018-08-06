@@ -11,15 +11,19 @@ namespace _20180806SpirographLib
     {
         public void Draw(Mat img, Stroke stroke, bool connectPoints)
         {
-            if (!connectPoints)
-                DrawPointByPoint(img, stroke);
-            else
-                DrawConnecting(img, stroke);
+            Draw(img, stroke.ToArray(), connectPoints);
         }
 
-        private void DrawConnecting(Mat img, Stroke stroke)
+        public void Draw(Mat img, SPoint[] points, bool connectPoints)
         {
-            var points = stroke.ToArray();
+            if (!connectPoints)
+                DrawPointByPoint(img, points);
+            else
+                DrawConnecting(img, points);
+        }
+
+        private void DrawConnecting(Mat img, SPoint[] points)
+        {
             for(int i=0; i<points.Length-1; i++)
             {
                 Vec3b color = points[i].Color;
@@ -31,10 +35,10 @@ namespace _20180806SpirographLib
             }
         }
 
-        private void DrawPointByPoint(Mat image, Stroke stroke)
+        private void DrawPointByPoint(Mat image, SPoint[] points)
         {
             var indexer = image.GetGenericIndexer<Vec3b>();
-            foreach (var p in stroke)
+            foreach (var p in points)
                 indexer[p.Y, p.X] = p.Color;
         }
     }

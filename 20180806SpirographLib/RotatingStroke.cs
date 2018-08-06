@@ -9,13 +9,13 @@ namespace _20180806SpirographLib
     public class RotatingStroke : Stroke
     {
         private Stroke delegateStroke;
-        private double angularSpeed;
-        private double radius;
+        public double AngularSpeed { get; set; }
+        public double Radius { get; set; }
         public RotatingStroke(Stroke delegateStroke, double angularSpeed, double radius)
         {
             this.delegateStroke = delegateStroke;
-            this.angularSpeed = angularSpeed;
-            this.radius = radius;
+            this.AngularSpeed = angularSpeed;
+            this.Radius = radius;
         }
 
         public IEnumerator<SPoint> GetEnumerator()
@@ -23,8 +23,8 @@ namespace _20180806SpirographLib
             var controlPoints = delegateStroke.ToList();
             for (int i = 0; i < controlPoints.Count; i++)
             {
-                int x = (int)Math.Round(controlPoints[i].X - radius * Math.Sin(i * angularSpeed / 180.0 * Math.PI));
-                int y = (int)Math.Round(controlPoints[i].Y - radius * Math.Cos(i * angularSpeed / 180.0 * Math.PI));
+                int x = (int)Math.Round(controlPoints[i].X - Radius * Math.Sin(i * AngularSpeed / 180.0 * Math.PI));
+                int y = (int)Math.Round(controlPoints[i].Y - Radius * Math.Cos(i * AngularSpeed / 180.0 * Math.PI));
                 var result = new SPoint(controlPoints[i]);
                 result.X = x;
                 result.Y = y;

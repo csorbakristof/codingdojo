@@ -8,15 +8,19 @@ namespace _20180806SpirographLib
 {
     public class StrokeFactory
     {
-        public static Stroke CreateInterpolatingStroke(SPoint[] controlPoints)
+        public static Stroke CreateInterpolatingStroke(SPoint[] controlPoints, int NumberOfIterations=1)
         {
-            return new InterpolatingStroke(new PolyStroke(controlPoints));
+            var ps = new PolyStroke(controlPoints);
+            ps.NumberOfIterations = NumberOfIterations;
+            return new InterpolatingStroke(ps);
         }
 
-        public static Stroke CreateRotatingStroke(SPoint[] controlPoints, double angularSpeed, double radius)
+        public static Stroke CreateRotatingStroke(SPoint[] controlPoints, double angularSpeed, double radius, int NumberOfIterations = 1)
         {
+            var ps = new PolyStroke(controlPoints);
+            ps.NumberOfIterations = NumberOfIterations;
             return new RotatingStroke(
-                new PolyStroke(controlPoints),
+                ps,
                 angularSpeed, radius);
         }
     }
