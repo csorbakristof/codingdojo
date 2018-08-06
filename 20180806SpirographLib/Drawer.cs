@@ -26,7 +26,8 @@ namespace _20180806SpirographLib
                 Cv2.Line(img,
                     new Point(points[i].X, points[i].Y),
                     new Point(points[i + 1].X, points[i + 1].Y),
-                    new Scalar(color.Item0, color.Item1, color.Item2));
+                    new Scalar(color.Item0, color.Item1, color.Item2),
+                    points[i].LineWidth);
             }
         }
 

@@ -1,10 +1,6 @@
 ﻿using _20180806SpirographLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _20180806SpirographTests
 {
@@ -23,7 +19,8 @@ namespace _20180806SpirographTests
 
         public static void AssertPointPresence(Stroke s, SPoint p, int count = 1)
         {
-            Assert.AreEqual(count, s.Count(i => i == p));
+            var points = s.ToArray();   // Note: ToArray is for easier debugging.
+            Assert.AreEqual(count, points.Count(i => i == p));
         }
     }
 }

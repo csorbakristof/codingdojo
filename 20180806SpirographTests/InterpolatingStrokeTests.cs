@@ -66,6 +66,17 @@ namespace _20180806SpirographTests
             PointListsHelper.AssertPointPresence(stroke, new SPoint[] { p1, pTest, p2 });
         }
 
+        [TestMethod]
+        public void LineWidthInterpolation()
+        {
+            var p1 = new SPoint(1, 0, new Vec3b(0, 0, 0), 1);
+            var pTest = new SPoint(5, 0, new Vec3b(9, 9, 9), 5);
+            var p2 = new SPoint(10, 0, new Vec3b(20, 20, 20), 10);
+            var stroke = new InterpolatingStroke(
+                new PolyStroke(new SPoint[] { p1, p2 }));
+            PointListsHelper.AssertPointPresence(stroke, new SPoint[] { p1, pTest, p2 });
+        }
+
         private class TestInterpolatingStroke : InterpolatingStroke
         {
             public TestInterpolatingStroke(Stroke delegateStroke) : base(delegateStroke)

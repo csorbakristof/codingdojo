@@ -41,5 +41,21 @@ namespace _20180806SpirographTests
             Assert.AreEqual(color, indexer[10, 10]);
             Assert.AreEqual(color, indexer[10, 15]);
         }
+
+        [TestMethod]
+        public void ConnectingDrawingLineWidthCheck()
+        {
+            Mat img = new Mat(100, 100, MatType.CV_8UC3, new Scalar(0, 0, 0));
+            var d = new Drawer();
+            Vec3b color = new Vec3b(128, 192, 255);
+            var s = new PolyStroke(new SPoint[] {
+                new SPoint(10,10,color,3), new SPoint(20,10,color,3) });
+            d.Draw(img, s, true);
+            var indexer = img.GetGenericIndexer<Vec3b>();
+            Assert.AreEqual(new Vec3b(0, 0, 0), indexer[50, 50]);
+            Assert.AreEqual(color, indexer[9, 10]);
+            Assert.AreEqual(color, indexer[11, 15]);
+            Assert.AreEqual(color, indexer[11, 15]);
+        }
     }
 }

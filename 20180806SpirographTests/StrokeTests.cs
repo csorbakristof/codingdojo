@@ -31,8 +31,23 @@ namespace _20180806SpirographTests
                 PointListsHelper.Shift(p1, 0, -5),
                 PointListsHelper.Shift(p2, -5, 0),
                 PointListsHelper.Shift(p3, 0, 5) });
-
         }
+
+        [TestMethod]
+        public void RotationPreservesColorAndLineWidth()
+        {
+            var color = new Vec3b(128, 192, 255);
+            var p1 = new SPoint(0, 0, color, 1);
+            var p2 = new SPoint(10, 0, color, 2);
+            var p3 = new SPoint(20, 0, color, 3);
+            var s = new RotatingStroke(new PolyStroke(new SPoint[] { p1, p2, p3 }), 90.0, 5.0);
+            Assert.AreEqual(3, s.Count());
+            var points = s.ToArray();
+            Assert.AreEqual(color, points[0].Color);
+            for(int i=1; i<3; i++)
+                Assert.AreEqual(i+1, points[i].LineWidth);
+        }
+
 
         [TestMethod]
         public void Dashed()

@@ -9,6 +9,7 @@ namespace _20180806SpirographLib
         public int X { get; set; }
         public int Y { get; set; }
         public Vec3b Color;
+        public int LineWidth = 1;
 
         public SPoint(int x, int y)
         {
@@ -17,11 +18,12 @@ namespace _20180806SpirographLib
             Color = new Vec3b(255, 255, 255);
         }
 
-        public SPoint(int x, int y, Vec3b color)
+        public SPoint(int x, int y, Vec3b color, int lineWidth=1)
         {
             X = x;
             Y = y;
             Color = color;
+            LineWidth = lineWidth;
         }
 
         public SPoint(SPoint other)
@@ -29,6 +31,7 @@ namespace _20180806SpirographLib
             X = other.X;
             Y = other.Y;
             Color = other.Color;
+            LineWidth = other.LineWidth;
         }
 
         public static bool operator==(SPoint obj1, SPoint obj2)
@@ -44,7 +47,7 @@ namespace _20180806SpirographLib
         public override bool Equals(object obj)
         {
             SPoint other = obj as SPoint;
-            return (X == other.X && Y == other.Y
+            return (X == other.X && Y == other.Y && LineWidth==other.LineWidth
                 && Color.Item0 == other.Color.Item0
                 && Color.Item1 == other.Color.Item1
                 && Color.Item2 == other.Color.Item2);
@@ -66,7 +69,7 @@ namespace _20180806SpirographLib
 
         public override string ToString()
         {
-            return $"SPoint({X},{Y},color({Color.Item0},{Color.Item1},{Color.Item2}))";
+            return $"SPoint({X},{Y},color({Color.Item0},{Color.Item1},{Color.Item2}),width({LineWidth}))";
         }
     }
 }

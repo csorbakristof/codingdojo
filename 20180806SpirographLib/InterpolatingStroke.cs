@@ -33,7 +33,7 @@ namespace _20180806SpirographLib
         protected IEnumerable<SPoint> GetPointsBetween(SPoint start, SPoint end, bool skipStartingPoint = false)
         {
             if (!skipStartingPoint)
-                yield return start;
+                yield return new SPoint(start);
             SPoint p = new SPoint(start);
             int pointNumber = Math.Max(Math.Abs(end.X - p.X), Math.Abs(end.Y - p.Y))+1;
             int i = 1;
@@ -43,6 +43,7 @@ namespace _20180806SpirographLib
                 p.Y += Math.Sign(end.Y - p.Y);
                 for (int j = 0; j < 3; j++)
                     p.Color[j] = InterpolateValue(start.Color[j], end.Color[j], pointNumber, i);
+                p.LineWidth = InterpolateValue(start.LineWidth, end.LineWidth, pointNumber, i);
                 yield return new SPoint(p);
                 i++;
             };
@@ -50,8 +51,13 @@ namespace _20180806SpirographLib
 
         protected byte InterpolateValue(byte a, byte b, int n, int i)
         {
+            return (byte)InterpolateValue((int)a,(int)b,n,i);
+        }
+
+        protected int InterpolateValue(int a, int b, int n, int i)
+        {
             double start = (double)a;
-            double step = ((double)b - (double)a) / (double)(n-1);
+            double step = ((double)b - (double)a) / (double)(n - 1);
             return (byte)Math.Round(start + i * step);
         }
     }

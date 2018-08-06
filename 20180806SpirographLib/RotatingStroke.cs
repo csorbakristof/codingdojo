@@ -25,7 +25,10 @@ namespace _20180806SpirographLib
             {
                 int x = (int)Math.Round(controlPoints[i].X - radius * Math.Sin(i * angularSpeed / 180.0 * Math.PI));
                 int y = (int)Math.Round(controlPoints[i].Y - radius * Math.Cos(i * angularSpeed / 180.0 * Math.PI));
-                yield return new SPoint(x, y, controlPoints[i].Color);
+                var result = new SPoint(controlPoints[i]);
+                result.X = x;
+                result.Y = y;
+                yield return result;
             }
         }
 

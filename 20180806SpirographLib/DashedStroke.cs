@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using _20180806SpirographLib;
 using OpenCvSharp;
 
-namespace _20180806SpirographTests
+namespace _20180806SpirographLib
 {
     public class DashedStroke : Stroke
     {
