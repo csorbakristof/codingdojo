@@ -42,11 +42,10 @@ namespace _20180806Spirograph
             while (controlPointAnimation.NextFrame())
             {
                 img.SetTo(new Scalar(0, 0, 0));
-                var currentPoints = strokeToDraw.ToArray();
-                strokeToDraw.AngularSpeed = CalculateAngularVelocity(currentPoints.Count(), NumberOfFullRotations);
-                drawer.Draw(img, currentPoints, true);
+                strokeToDraw.AngularSpeed = CalculateAngularVelocity(strokeToDraw.Count(), NumberOfFullRotations);
+                drawer.Draw(img, strokeToDraw, true);
                 Cv2.ImShow("Spirograph", img.Clone());
-                if (Cv2.WaitKey(10) == Key_Esc)
+                if (Cv2.WaitKey(20) == Key_Esc)
                     break;
             }
         }
