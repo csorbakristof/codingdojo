@@ -62,6 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrawerTests.cs" />
+    <Compile Include="InterpolatingStrokeTests.cs" />
+    <Compile Include="PointListsHelper.cs" />
     <Compile Include="SPointTests.cs" />
     <Compile Include="StrokeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

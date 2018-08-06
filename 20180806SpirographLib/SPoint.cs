@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OpenCvSharp;
 
 namespace _20180806SpirographLib
@@ -43,6 +44,14 @@ namespace _20180806SpirographLib
         public override bool Equals(object obj)
         {
             SPoint other = obj as SPoint;
+            return (X == other.X && Y == other.Y
+                && Color.Item0 == other.Color.Item0
+                && Color.Item1 == other.Color.Item1
+                && Color.Item2 == other.Color.Item2);
+        }
+
+        public bool EqualsPosition(SPoint other)
+        {
             return (X == other.X && Y == other.Y);
         }
 
