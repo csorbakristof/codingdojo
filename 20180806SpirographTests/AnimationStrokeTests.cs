@@ -33,5 +33,35 @@ namespace _20180806SpirographTests
                 new SPoint[] { A2, B2 });
             Assert.IsFalse(anim.NextFrame());
         }
+
+        [TestMethod]
+        public void AnimateInterpolatingStroke()
+        {
+            SPoint StartPointInFrame0 = new SPoint(0, 0);
+            SPoint StartPointInFrame10 = new SPoint(0, 10);
+            SPoint EndPointInFrame0 = new SPoint(100, 0);
+            SPoint EndPointInFrame10 = new SPoint(100, 10);
+            var controlPointAnimation = new AnimationStroke();
+            var s1 = StrokeFactory.CreateInterpolatingStroke(new SPoint[] { StartPointInFrame0, StartPointInFrame10 });
+            controlPointAnimation.AddStrokeAsTimeDependentControlPoint(s1);
+            var s2 = StrokeFactory.CreateInterpolatingStroke(new SPoint[] { EndPointInFrame0, EndPointInFrame10 });
+            controlPointAnimation.AddStrokeAsTimeDependentControlPoint(s2);
+            var s = new InterpolatingStroke(controlPointAnimation);
+
+            for(int t=0; t<=10; t++)
+            {
+                Assert.IsTrue(controlPointAnimation.NextFrame());
+                var currentPoints = s.ToArray();
+                AssertAllPointsInHorizontalLine(currentPoints, t, 0, 100);
+            }
+            Assert.IsFalse(controlPointAnimation.NextFrame());
+
+        }
+
+        private void AssertAllPointsInHorizontalLine(SPoint[] currentPoints, int y, int x0, int x1)
+        {
+            for (int x = x0; x <= x1; x++)
+                PointListsHelper.AssertPointPresence(currentPoints, new SPoint(x, y), 1);
+        }
     }
 }

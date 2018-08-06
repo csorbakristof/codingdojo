@@ -22,5 +22,10 @@ namespace _20180806SpirographTests
             var points = s.ToArray();   // Note: ToArray is for easier debugging.
             Assert.AreEqual(count, points.Count(i => i == p));
         }
+
+        public static void AssertPointPresence(SPoint[] strokePoints, SPoint p, int count = 1)
+        {
+            Assert.AreEqual(count, strokePoints.Count(i => i == p));
+        }
     }
 }
