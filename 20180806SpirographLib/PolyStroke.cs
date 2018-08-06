@@ -18,6 +18,8 @@ namespace _20180806SpirographLib
             this.points.AddRange(points);
         }
 
+        public int NumberOfIterations { get; set; } = 1;
+
         public void Add(SPoint point)
         {
             points.Add(point);
@@ -25,12 +27,16 @@ namespace _20180806SpirographLib
 
         public IEnumerator<SPoint> GetEnumerator()
         {
-            return points.GetEnumerator();
+            for(int i=0; i<NumberOfIterations; i++)
+            {
+                foreach (var p in points)
+                    yield return p;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return points.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

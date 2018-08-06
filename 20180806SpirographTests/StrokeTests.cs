@@ -14,7 +14,7 @@ namespace _20180806SpirographTests
             var p1 = new SPoint(0, 0);
             var p2 = new SPoint(1, 1);
             var s = new PolyStroke(new SPoint[] { p1, p2 });
-            AssertPointSinglePresence(s, new SPoint[] { p1, p2 });
+            AssertPointPresence(s, new SPoint[] { p1, p2 });
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace _20180806SpirographTests
             var stroke = new InterpolatingStroke(
                 new PolyStroke(new SPoint[] { p1, p2, p3 }));
             Assert.AreEqual(21, stroke.Count());
-            AssertPointSinglePresence(stroke, new SPoint[] { p1, pTest1, p2, pTest2, p3 });
+            AssertPointPresence(stroke, new SPoint[] { p1, pTest1, p2, pTest2, p3 });
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace _20180806SpirographTests
             var s = new PolyStroke(new SPoint[] { p1, p2, p3 });
             var stroke = new RotatingStroke(s, 90.0, 5.0);
             Assert.AreEqual(3, stroke.Count());
-            AssertPointSinglePresence(stroke, new SPoint[] {
+            AssertPointPresence(stroke, new SPoint[] {
                 Shift(p1, 0, -5), Shift(p2, -5, 0), Shift(p3, 0, 5) });
 
         }
@@ -55,7 +55,22 @@ namespace _20180806SpirographTests
             var s = new PolyStroke(new SPoint[] { p1, p2, p3, p4 });
             var dashed = new DashedStroke(s, 2);
             Assert.AreEqual(2, dashed.Count());
-            AssertPointSinglePresence(dashed, new SPoint[] {p1, p3});
+            AssertPointPresence(dashed, new SPoint[] {p1, p3});
+        }
+
+        [TestMethod]
+        public void MultipleIterationsByPolystroke()
+        {
+            const int numberOfIterations = 3;
+            var p1 = new SPoint(0, 0);
+            var p2 = new SPoint(10, 0);
+            var p3 = new SPoint(10, 10);
+            var p4 = new SPoint(0, 10);
+            var s = new PolyStroke(new SPoint[] { p1, p2, p3, p4 });
+            s.NumberOfIterations = numberOfIterations;
+            var points = s.ToArray();
+            Assert.AreEqual(4*numberOfIterations, points.Length);
+            AssertPointPresence(s, new SPoint[] { p1, p2, p3, p4}, 3);
         }
 
         private SPoint Shift(SPoint basePoint, int xShift, int yShift)
@@ -63,16 +78,16 @@ namespace _20180806SpirographTests
             return new SPoint(basePoint.X + xShift, basePoint.Y + yShift);
         }
 
-        private void AssertPointSinglePresence(Stroke s, SPoint[] points)
+        private void AssertPointPresence(Stroke s, SPoint[] points, int count = 1)
         {
             foreach (var p in points)
-                AssertPointSinglePresence(s, p);
+                AssertPointPresence(s, p, count);
         }
 
-        private void AssertPointSinglePresence(Stroke s, SPoint p)
+        private void AssertPointPresence(Stroke s, SPoint p, int count=1)
         {
             var points = s.ToList();
-            Assert.AreEqual(1, s.Count(i => i == p));
+            Assert.AreEqual(count, s.Count(i => i == p));
         }
     }
 }
