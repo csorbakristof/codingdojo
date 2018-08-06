@@ -34,7 +34,7 @@ namespace _20180806SpirographLib
         {
             if (!skipStartingPoint)
                 yield return start;
-            SPoint p = new SPoint(start.X, start.Y);
+            SPoint p = new SPoint(start);
             while (p != end)
             {
                 p.X += Math.Sign(end.X - p.X);
