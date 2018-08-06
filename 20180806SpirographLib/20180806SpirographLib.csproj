@@ -63,6 +63,7 @@
     <Compile Include="RotatingStroke.cs" />
     <Compile Include="SPoint.cs" />
     <Compile Include="Stroke.cs" />
+    <Compile Include="StrokeFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

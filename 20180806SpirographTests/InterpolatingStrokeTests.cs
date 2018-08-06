@@ -22,12 +22,10 @@ namespace _20180806SpirographTests
             var p2 = new SPoint(10, 0);
             var pTest2 = new SPoint(10, 4);
             var p3 = new SPoint(10, 10);
-            var stroke = new InterpolatingStroke(
-                new PolyStroke(new SPoint[] { p1, p2, p3 }));
+            var stroke = StrokeFactory.CreateInterpolatingStroke(new SPoint[] { p1, p2, p3 });
             Assert.AreEqual(21, stroke.Count());
             PointListsHelper.AssertPointPresence(stroke, new SPoint[] { p1, pTest1, p2, pTest2, p3 });
         }
-
 
         [TestMethod]
         public void InterpolateValueTest()
@@ -61,8 +59,7 @@ namespace _20180806SpirographTests
             var p1 = new SPoint(0, 0, new Vec3b(0, 0, 0));
             var pTest = new SPoint(5, 0, new Vec3b(10, 10, 10));
             var p2 = new SPoint(10, 0, new Vec3b(20, 20, 20));
-            var stroke = new InterpolatingStroke(
-                new PolyStroke(new SPoint[] { p1, p2 }));
+            var stroke = StrokeFactory.CreateInterpolatingStroke(new SPoint[] { p1, p2 });
             PointListsHelper.AssertPointPresence(stroke, new SPoint[] { p1, pTest, p2 });
         }
 
@@ -72,8 +69,7 @@ namespace _20180806SpirographTests
             var p1 = new SPoint(1, 0, new Vec3b(0, 0, 0), 1);
             var pTest = new SPoint(5, 0, new Vec3b(9, 9, 9), 5);
             var p2 = new SPoint(10, 0, new Vec3b(20, 20, 20), 10);
-            var stroke = new InterpolatingStroke(
-                new PolyStroke(new SPoint[] { p1, p2 }));
+            var stroke = StrokeFactory.CreateInterpolatingStroke(new SPoint[] { p1, p2 });
             PointListsHelper.AssertPointPresence(stroke, new SPoint[] { p1, pTest, p2 });
         }
 

@@ -24,10 +24,9 @@ namespace _20180806SpirographTests
             var p1 = new SPoint(0, 0, color);
             var p2 = new SPoint(10, 0);
             var p3 = new SPoint(20, 0);
-            var s = new PolyStroke(new SPoint[] { p1, p2, p3 });
-            var stroke = new RotatingStroke(s, 90.0, 5.0);
-            Assert.AreEqual(3, stroke.Count());
-            PointListsHelper.AssertPointPresence(stroke, new SPoint[] {
+            var s = StrokeFactory.CreateRotatingStroke(new SPoint[] { p1, p2, p3 }, 90.0, 5.0);
+            Assert.AreEqual(3, s.Count());
+            PointListsHelper.AssertPointPresence(s, new SPoint[] {
                 PointListsHelper.Shift(p1, 0, -5),
                 PointListsHelper.Shift(p2, -5, 0),
                 PointListsHelper.Shift(p3, 0, 5) });
@@ -40,7 +39,7 @@ namespace _20180806SpirographTests
             var p1 = new SPoint(0, 0, color, 1);
             var p2 = new SPoint(10, 0, color, 2);
             var p3 = new SPoint(20, 0, color, 3);
-            var s = new RotatingStroke(new PolyStroke(new SPoint[] { p1, p2, p3 }), 90.0, 5.0);
+            var s = StrokeFactory.CreateRotatingStroke(new SPoint[] { p1, p2, p3 }, 90.0, 5.0);
             Assert.AreEqual(3, s.Count());
             var points = s.ToArray();
             Assert.AreEqual(color, points[0].Color);
