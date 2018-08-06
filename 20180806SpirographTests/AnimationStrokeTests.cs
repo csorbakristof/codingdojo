@@ -55,7 +55,6 @@ namespace _20180806SpirographTests
                 AssertAllPointsInHorizontalLine(currentPoints, t, 0, 100);
             }
             Assert.IsFalse(controlPointAnimation.NextFrame());
-
         }
 
         private void AssertAllPointsInHorizontalLine(SPoint[] currentPoints, int y, int x0, int x1)
