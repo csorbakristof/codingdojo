@@ -2,15 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _20180806SpirographLib
 {
     public class PolyStroke : Stroke
     {
-        private List<Point> points = new List<Point>();
+        protected List<Point> points = new List<Point>();
         public void Add(Point point)
         {
             points.Add(point);
@@ -37,14 +34,6 @@ namespace _20180806SpirographLib
                 p.Y += Math.Sign(end.Y - p.Y);
                 points.Add(p);
             }
-        }
-
-        public void Interpolate()
-        {
-            var controlPoints = points;
-            points = new List<Point>();
-            for (int i = 0; i < controlPoints.Count - 1; i++)
-                AddPointsBetween(controlPoints[i], controlPoints[i + 1], (i != 0));
         }
 
         public void Rotate(double angularSpeed, double radius)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using _20180806SpirographLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCvSharp;
@@ -43,10 +42,11 @@ namespace _20180806SpirographTests
             var p2 = new Point(10, 0);
             var pTest2 = new Point(10, 4);
             var p3 = new Point(10, 10);
+            this.stroke = new InterpolatingStroke();
             stroke.Add(p1);
             stroke.Add(p2);
             stroke.Add(p3);
-            stroke.Interpolate();
+            ((InterpolatingStroke)stroke).Interpolate();
             AssertPointPresence(p1);
             AssertPointPresence(pTest1);
             Assert.AreEqual(1, stroke.Count(i => i == p2));
