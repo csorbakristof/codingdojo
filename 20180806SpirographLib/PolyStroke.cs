@@ -7,23 +7,23 @@ namespace _20180806SpirographLib
 {
     public class PolyStroke : Stroke
     {
-        private List<Point> points = new List<Point>();
+        private List<SPoint> points = new List<SPoint>();
 
         public PolyStroke()
         {
         }
 
-        public PolyStroke(Point[] points)
+        public PolyStroke(SPoint[] points)
         {
             this.points.AddRange(points);
         }
 
-        public void Add(Point point)
+        public void Add(SPoint point)
         {
             points.Add(point);
         }
 
-        public IEnumerator<Point> GetEnumerator()
+        public IEnumerator<SPoint> GetEnumerator()
         {
             return points.GetEnumerator();
         }

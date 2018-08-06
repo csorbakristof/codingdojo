@@ -14,7 +14,7 @@ namespace _20180806SpirographLib
             this.delegateStroke = delegateStroke;
         }
 
-        public IEnumerator<Point> GetEnumerator()
+        public IEnumerator<SPoint> GetEnumerator()
         {
             var controlPoints = delegateStroke.ToList();
             for (int i = 0; i < controlPoints.Count - 1; i++)
@@ -30,11 +30,11 @@ namespace _20180806SpirographLib
             return GetEnumerator();
         }
 
-        public IEnumerable<Point> GetPointsBetween(Point start, Point end, bool skipStartingPoint = false)
+        public IEnumerable<SPoint> GetPointsBetween(SPoint start, SPoint end, bool skipStartingPoint = false)
         {
             if (!skipStartingPoint)
                 yield return start;
-            Point p = start;
+            SPoint p = new SPoint(start.X, start.Y);
             while (p != end)
             {
                 p.X += Math.Sign(end.X - p.X);

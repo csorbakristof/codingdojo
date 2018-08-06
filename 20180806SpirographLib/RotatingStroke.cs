@@ -18,14 +18,14 @@ namespace _20180806SpirographLib
             this.radius = radius;
         }
 
-        public IEnumerator<Point> GetEnumerator()
+        public IEnumerator<SPoint> GetEnumerator()
         {
             var controlPoints = delegateStroke.ToList();
             for (int i = 0; i < controlPoints.Count; i++)
             {
-                double x = Math.Round(controlPoints[i].X - radius * Math.Sin(i * angularSpeed / 180.0 * Math.PI));
-                double y = Math.Round(controlPoints[i].Y - radius * Math.Cos(i * angularSpeed / 180.0 * Math.PI));
-                yield return new Point(x, y);
+                int x = (int)Math.Round(controlPoints[i].X - radius * Math.Sin(i * angularSpeed / 180.0 * Math.PI));
+                int y = (int)Math.Round(controlPoints[i].Y - radius * Math.Cos(i * angularSpeed / 180.0 * Math.PI));
+                yield return new SPoint(x, y);
             }
         }
 

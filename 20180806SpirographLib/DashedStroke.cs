@@ -16,7 +16,7 @@ namespace _20180806SpirographTests
             this.periodLength = periodLength;
         }
 
-        public IEnumerator<Point> GetEnumerator()
+        public IEnumerator<SPoint> GetEnumerator()
         {
             int i = 0;
             foreach (var p in delegateStroke)
