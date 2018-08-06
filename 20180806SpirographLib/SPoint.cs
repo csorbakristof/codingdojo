@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OpenCvSharp;
 
 namespace _20180806SpirographLib
@@ -48,6 +44,15 @@ namespace _20180806SpirographLib
         {
             SPoint other = obj as SPoint;
             return (X == other.X && Y == other.Y);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -196163389;
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Vec3b>.Default.GetHashCode(Color);
+            return hashCode;
         }
     }
 }
