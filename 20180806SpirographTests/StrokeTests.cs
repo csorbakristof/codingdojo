@@ -8,17 +8,13 @@ namespace _20180806SpirographTests
     [TestClass]
     public class StrokeTests
     {
-        Stroke stroke = new PolyStroke();
-
         [TestMethod]
         public void PointStorage()
         {
             var p1 = new Point(0, 0);
             var p2 = new Point(1, 1);
-            ((PolyStroke)stroke).Add(p1);
-            ((PolyStroke)stroke).Add(p2);
-            AssertPointPresence(p1);
-            AssertPointPresence(p2);
+            var s = new PolyStroke(new Point[] { p1, p2 });
+            AssertPointSinglePresence(s, new Point[] { p1, p2 });
         }
 
         [TestMethod]
@@ -29,16 +25,10 @@ namespace _20180806SpirographTests
             var p2 = new Point(10, 0);
             var pTest2 = new Point(10, 4);
             var p3 = new Point(10, 10);
-            ((PolyStroke)stroke).Add(p1);
-            ((PolyStroke)stroke).Add(p2);
-            ((PolyStroke)stroke).Add(p3);
-            this.stroke = new InterpolatingStroke(this.stroke);
-            AssertPointPresence(p1);
-            AssertPointPresence(pTest1);
-            Assert.AreEqual(1, stroke.Count(i => i == p2));
-            AssertPointPresence(pTest2);
-            AssertPointPresence(p3);
+            var stroke = new InterpolatingStroke(
+                new PolyStroke(new Point[] { p1, p2, p3 }));
             Assert.AreEqual(21, stroke.Count());
+            AssertPointSinglePresence(stroke, new Point[] { p1, pTest1, p2, pTest2, p3 });
         }
 
         [TestMethod]
@@ -47,15 +37,11 @@ namespace _20180806SpirographTests
             var p1 = new Point(0, 0);
             var p2 = new Point(10, 0);
             var p3 = new Point(20, 0);
-            ((PolyStroke)stroke).Add(p1);
-            ((PolyStroke)stroke).Add(p2);
-            ((PolyStroke)stroke).Add(p3);
-            this.stroke = new RotatingStroke(this.stroke, 90.0, 5.0);
+            var s = new PolyStroke(new Point[] { p1, p2, p3 });
+            var stroke = new RotatingStroke(s, 90.0, 5.0);
             Assert.AreEqual(3, stroke.Count());
-            var points = stroke.ToList();
-            AssertPointPresence(Shift(p1, 0, -5));
-            AssertPointPresence(Shift(p2, -5, 0));
-            AssertPointPresence(Shift(p3, 0, 5));
+            AssertPointSinglePresence(stroke, new Point[] {
+                Shift(p1, 0, -5), Shift(p2, -5, 0), Shift(p3, 0, 5) });
 
         }
 
@@ -64,9 +50,15 @@ namespace _20180806SpirographTests
             return new Point(basePoint.X + xShift, basePoint.Y + yShift);
         }
 
-        private void AssertPointPresence(Point p)
+        private void AssertPointSinglePresence(Stroke s, Point[] points)
         {
-            Assert.IsTrue(stroke.Any(i => i == p));
+            foreach (var p in points)
+                AssertPointSinglePresence(s, p);
+        }
+
+        private void AssertPointSinglePresence(Stroke s, Point p)
+        {
+            Assert.AreEqual(1, s.Count(i => i == p));
         }
     }
 }
