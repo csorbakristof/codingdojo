@@ -1,28 +1,37 @@
 ﻿using OpenCvSharp;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace _20180806SpirographLib
 {
-    public class RotatingStroke : PolyStroke
+    public class RotatingStroke : Stroke
     {
-        private PolyStroke delegateStroke;
-        public RotatingStroke(PolyStroke delegateStroke)
+        private Stroke delegateStroke;
+        private double angularSpeed;
+        private double radius;
+        public RotatingStroke(Stroke delegateStroke, double angularSpeed, double radius)
         {
             this.delegateStroke = delegateStroke;
+            this.angularSpeed = angularSpeed;
+            this.radius = radius;
         }
 
-        public void Rotate(double angularSpeed, double radius)
+        public IEnumerator<Point> GetEnumerator()
         {
             var controlPoints = delegateStroke.ToList();
-            points.Clear();
             for (int i = 0; i < controlPoints.Count; i++)
             {
                 double x = Math.Round(controlPoints[i].X - radius * Math.Sin(i * angularSpeed / 180.0 * Math.PI));
                 double y = Math.Round(controlPoints[i].Y - radius * Math.Cos(i * angularSpeed / 180.0 * Math.PI));
-                points.Add(new Point(x, y));
+                yield return new Point(x, y);
             }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
