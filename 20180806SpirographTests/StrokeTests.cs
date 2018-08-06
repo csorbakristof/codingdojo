@@ -61,10 +61,11 @@ namespace _20180806SpirographTests
             var p1 = new Point(0, 0);
             var p2 = new Point(10, 0);
             var p3 = new Point(20, 0);
+            this.stroke = new RotatingStroke();
             stroke.Add(p1);
             stroke.Add(p2);
             stroke.Add(p3);
-            stroke.Rotate(90.0, 5.0);
+            ((RotatingStroke)stroke).Rotate(90.0, 5.0);
             Assert.AreEqual(3, stroke.Count());
             var points = stroke.ToList();
             AssertPointPresence(Shift(p1, 0, -5));
