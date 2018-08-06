@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DashedStroke.cs" />
     <Compile Include="InterpolatingStroke.cs" />
     <Compile Include="PolyStroke.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

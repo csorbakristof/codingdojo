@@ -45,6 +45,20 @@ namespace _20180806SpirographTests
 
         }
 
+        [TestMethod]
+        public void Dashed()
+        {
+            var p1 = new Point(0, 0);
+            var p2 = new Point(10, 0);
+            var p3 = new Point(20, 0);
+            var p4 = new Point(30, 0);
+            var s = new PolyStroke(new Point[] { p1, p2, p3, p4 });
+            var dashed = new DashedStroke(s, 2);
+            Assert.AreEqual(2, dashed.Count());
+            AssertPointSinglePresence(dashed, new Point[] {p1, p3});
+
+        }
+
         private Point Shift(Point basePoint, int xShift, int yShift)
         {
             return new Point(basePoint.X + xShift, basePoint.Y + yShift);
