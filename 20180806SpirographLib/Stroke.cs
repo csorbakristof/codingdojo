@@ -26,9 +26,10 @@ namespace _20180806SpirographLib
             return points.GetEnumerator();
         }
 
-        public void AddPointsBetween(Point start, Point end)
+        public void AddPointsBetween(Point start, Point end, bool skipStartingPoint=false)
         {
-            points.Add(start);
+            if (!skipStartingPoint)
+                points.Add(start);
             Point p = start;
             while(p != end)
             {
@@ -36,6 +37,14 @@ namespace _20180806SpirographLib
                 p.Y += Math.Sign(end.Y - p.Y);
                 points.Add(p);
             }
+        }
+
+        public void Interpolate()
+        {
+            var controlPoints = points;
+            points = new List<Point>();
+            for(int i=0; i< controlPoints.Count-1; i++)
+                AddPointsBetween(controlPoints[i], controlPoints[i + 1], (i!=0));
         }
     }
 }
