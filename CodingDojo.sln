@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180806Mastermind", "20180
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180808Mastermind", "20180808Mastermind\20180808Mastermind.csproj", "{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180808PrimeFactors", "20180808PrimeFactors\20180808PrimeFactors.csproj", "{EF0091CA-3BB1-438B-8CCB-570E34CCB29E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF0091CA-3BB1-438B-8CCB-570E34CCB29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF0091CA-3BB1-438B-8CCB-570E34CCB29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF0091CA-3BB1-438B-8CCB-570E34CCB29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF0091CA-3BB1-438B-8CCB-570E34CCB29E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
