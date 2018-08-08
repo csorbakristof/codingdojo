@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180806SpirographTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180806Mastermind", "20180806Mastermind\20180806Mastermind.csproj", "{CD12E3CC-29CB-4423-9D68-CFFEE3DD9D1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180808Mastermind", "20180808Mastermind\20180808Mastermind.csproj", "{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{CD12E3CC-29CB-4423-9D68-CFFEE3DD9D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD12E3CC-29CB-4423-9D68-CFFEE3DD9D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD12E3CC-29CB-4423-9D68-CFFEE3DD9D1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB3E281-BD93-42A2-877E-9E8BAFE6ECD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

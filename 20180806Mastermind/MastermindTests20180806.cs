@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace _20180806Mastermind
 {
     [TestClass]
-    public class UnitTest1
+    public class MastermindTests20180806
     {
         private MMind m = new MMind();
 
