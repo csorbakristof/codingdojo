@@ -17,54 +17,41 @@ namespace _20180824BankOcr
         public void ChecksumCheckWorks()
         {
             Assert.AreEqual(true, r.IsChecksumValid("000000000"));
-            Assert.AreEqual(true, r.IsChecksumValid(codeWithCorrectChecksum));
-            Assert.AreEqual(false, r.IsChecksumValid(codeWithWrongChecksum));
+            Assert.AreEqual(true, r.IsChecksumValid(Patterns.codeWithCorrectChecksum));
+            Assert.AreEqual(false, r.IsChecksumValid(Patterns.codeWithWrongChecksum));
         }
 
         [TestMethod]
         public void InternalTest_PatternWithCorrectChecksum_IsCorrect()
         {
-            Assert.AreEqual(codeWithCorrectChecksum, r.Eval(patternWithCorrectChecksum));
+            Assert.AreEqual(Patterns.codeWithCorrectChecksum,
+                r.Eval(Patterns.patternWithCorrectChecksum));
         }
 
         [TestMethod]
         public void UnrecognizedDigitMarkedWithQuestionmark()
         {
-            Assert.AreEqual(codeWithWrong3And7, r.Eval(patternWithWrong3And7));
+            Assert.AreEqual(Patterns.codeWithWrong3And7,
+                r.Eval(Patterns.patternWithWrong3And7));
         }
 
         [TestMethod]
         public void StatusReturnedCorrectly()
         {
-            Assert.AreEqual("", r.GetStatus(patternWithCorrectChecksum));
-            Assert.AreEqual("ERR", r.GetStatus(patternWithWrongChecksum));
-            Assert.AreEqual("ILL", r.GetStatus(patternWithWrong3And7));
+            Assert.AreEqual("", r.GetStatus(Patterns.patternWithCorrectChecksum));
+            Assert.AreEqual("ERR", r.GetStatus(Patterns.patternWithWrongChecksum));
+            Assert.AreEqual("ILL", r.GetStatus(Patterns.patternWithWrong3And7));
         }
 
         [TestMethod]
         public void ReportIsCorrect()
         {
-            Assert.AreEqual(codeWithCorrectChecksum, r.GetReport(patternWithCorrectChecksum));
-            Assert.AreEqual(codeWithWrongChecksum+" ERR", r.GetReport(patternWithWrongChecksum));
-            Assert.AreEqual(codeWithWrong3And7+" ILL", r.GetReport(patternWithWrong3And7));
+            Assert.AreEqual(Patterns.codeWithCorrectChecksum,
+                r.GetReport(Patterns.patternWithCorrectChecksum));
+            Assert.AreEqual(Patterns.codeWithWrongChecksum +" ERR",
+                r.GetReport(Patterns.patternWithWrongChecksum));
+            Assert.AreEqual(Patterns.codeWithWrong3And7 +" ILL",
+                r.GetReport(Patterns.patternWithWrong3And7));
         }
-
-        private string codeWithWrong3And7 = "12?456?89";
-        private string patternWithWrong3And7 =
-            "    _  _     _  _  _  _  _ \n" +
-            "  | _| _ |_||_ |_   ||_||_|\n" +
-            "  ||_  _|  | _||_| _||_| _|\n" + "\n";
-
-        private const string codeWithCorrectChecksum = "345882865";
-        private string patternWithCorrectChecksum =
-            " _     _  _  _  _  _  _  _ \n" +
-            " _||_||_ |_||_| _||_||_ |_ \n" +
-            " _|  | _||_||_||_ |_||_| _|\n" + "\n";
-
-        const string codeWithWrongChecksum = "111111111";
-        private string patternWithWrongChecksum =
-            "                           \n" +
-            "  |  |  |  |  |  |  |  |  |\n" +
-            "  |  |  |  |  |  |  |  |  |\n" + "\n";
     }
 }

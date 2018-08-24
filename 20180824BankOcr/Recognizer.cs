@@ -28,6 +28,30 @@ namespace _20180824BankOcr
             return line1 + line2 + line3;
         }
 
+        internal string GetCorrectedCode(string origPattern)
+        {
+            var origCode = Eval(origPattern);
+            if (!origCode.Contains("?"))
+                return origCode;
+            string fullPattern =
+                " _  _  _  _  _  _  _  _  _ \n" +
+                "|_||_||_||_||_||_||_||_||_|\n" +
+                "|_||_||_||_||_||_||_||_||_|\n" + "\n";
+            var fullPatternChars = fullPattern.ToCharArray();
+            for(int i=0; i<fullPattern.Length; i++)
+            {
+                if (origPattern[i] == '\n')
+                    continue;
+                var currentPattern = origPattern.ToCharArray();
+                currentPattern[i] = (origPattern[i] == ' ') ? fullPatternChars[i] : ' ';
+                var currentCode = Eval(new string(currentPattern));
+                if (!currentCode.Contains("?"))
+                    if (IsChecksumValid(currentCode))
+                        return currentCode;
+            }
+            return origCode;
+        }
+
         internal bool IsChecksumValid(string code)
         {
             return (CalculateChecksum(code) == 0);
