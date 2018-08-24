@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace _20180824BankOcr
 {
@@ -25,6 +26,16 @@ namespace _20180824BankOcr
             string line2 = pattern.Substring(step + 3 * idx, 3);
             string line3 = pattern.Substring(2 * step + 3 * idx, 3);
             return line1 + line2 + line3;
+        }
+
+        internal int CalculateChecksum(string value)
+        {
+            int[] d = value.ToCharArray()
+                .Select(c=>(int)Char.GetNumericValue(c)).ToArray();
+            int sum = 0;
+            for (int i = 0; i < 9; i++)
+                sum += (i + 1) * d[i];
+            return sum % 11;
         }
 
         internal string RecognizeDigit(string patternOfDigit)

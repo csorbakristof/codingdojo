@@ -51,6 +51,7 @@
     <Compile Include="Recognizer.cs" />
     <Compile Include="UserStory1Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserStory2Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
