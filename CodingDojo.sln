@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180813Linq", "20180813Lin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180815UwpAppDatabinding", "20180815UwpAppDatabinding\20180815UwpAppDatabinding.csproj", "{546F58E4-D911-475A-A5E8-2F47FC68C471}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180824BankOcr", "20180824BankOcr\20180824BankOcr.csproj", "{00BBAFED-2C28-4BF5-843B-082354EEF6CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,22 @@ Global
 		{546F58E4-D911-475A-A5E8-2F47FC68C471}.Release|x86.ActiveCfg = Release|x86
 		{546F58E4-D911-475A-A5E8-2F47FC68C471}.Release|x86.Build.0 = Release|x86
 		{546F58E4-D911-475A-A5E8-2F47FC68C471}.Release|x86.Deploy.0 = Release|x86
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Debug|ARM.Build.0 = Debug|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Release|ARM.ActiveCfg = Release|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Release|ARM.Build.0 = Release|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Release|x64.Build.0 = Release|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{00BBAFED-2C28-4BF5-843B-082354EEF6CE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
