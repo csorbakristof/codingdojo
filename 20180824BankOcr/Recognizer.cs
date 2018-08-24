@@ -28,14 +28,36 @@ namespace _20180824BankOcr
             return line1 + line2 + line3;
         }
 
+        internal bool IsChecksumValid(string code)
+        {
+            return (CalculateChecksum(code) == 0);
+        }
+
         internal int CalculateChecksum(string value)
         {
             int[] d = value.ToCharArray()
-                .Select(c=>(int)Char.GetNumericValue(c)).ToArray();
+                .Select(c=>(int)Char.GetNumericValue(c)).Reverse().ToArray();
             int sum = 0;
             for (int i = 0; i < 9; i++)
                 sum += (i + 1) * d[i];
             return sum % 11;
+        }
+
+        internal string GetStatus(string pattern)
+        {
+            var eval = Eval(pattern);
+            if (eval.Contains("?"))
+                return "ILL";
+            if (!IsChecksumValid(eval))
+                return "ERR";
+            return "";
+        }
+
+        internal string GetReport(string pattern)
+        {
+            var eval = Eval(pattern);
+            var status = GetStatus(pattern);
+            return eval + (status == "" ? "" : " " + status);
         }
 
         internal string RecognizeDigit(string patternOfDigit)
@@ -43,7 +65,7 @@ namespace _20180824BankOcr
             for (int i = 0; i < 10; i++)
                 if (patternOfDigit == ExtractDigit(numberSequence, i, 10))
                     return i.ToString();
-            throw new ArgumentException($"Unrecognized digit: <{patternOfDigit}>");
+            return "?";
         }
 
         public const string numberSequence =

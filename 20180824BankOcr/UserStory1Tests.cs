@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace _20180824BankOcr
 {
-    // Coding Dojo kata: http://codingdojo.org/kata/BankOCR
     [TestClass]
     public class UserStory1Tests
     {
