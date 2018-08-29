@@ -45,19 +45,19 @@ namespace _20180829Mastermind
         [TestMethod]
         public void BlackMaskerEquals_MasksAll()
         {
-            Assert.AreEqual(("___", 3), m.BlackMasked("ABC", "ABC"));
+            Assert.AreEqual(("___", 3), m.MaskMatchesInCorrect("ABC", "ABC", false));
         }
 
         [TestMethod]
         public void BlackMaskerUnequals_MasksNone()
         {
-            Assert.AreEqual(("XYZ", 0), m.BlackMasked("ABC", "XYZ"));
+            Assert.AreEqual(("XYZ", 0), m.MaskMatchesInCorrect("ABC", "XYZ", false));
         }
 
         [TestMethod]
         public void BlackMasker_ReturnsCorrect()
         {
-            Assert.AreEqual(("___ZZ", 3), m.BlackMasked("ABCXY", "ABCZZ"));
+            Assert.AreEqual(("___ZZ", 3), m.MaskMatchesInCorrect("ABCXY", "ABCZZ", false));
         }
 
         [TestMethod]
@@ -70,8 +70,8 @@ namespace _20180829Mastermind
         [TestMethod]
         public void WhiteMasked()
         {
-            Assert.AreEqual(("_AYYY", 1), m.WhiteMasked("XXAXX", "AAYYY"));
-            Assert.AreEqual(("YYY__", 2), m.WhiteMasked("ABXXX", "YYYAB"));
+            Assert.AreEqual(("_AYYY", 1), m.MaskMatchesInCorrect("XXAXX", "AAYYY", true));
+            Assert.AreEqual(("YYY__", 2), m.MaskMatchesInCorrect("ABXXX", "YYYAB", true));
         }
 
         [TestMethod]
