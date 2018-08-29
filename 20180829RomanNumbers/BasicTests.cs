@@ -14,7 +14,6 @@ namespace _20180829RomanNumbers
             AssertEq(0, "");
         }
 
-
         [TestMethod]
         public void CountsI()
         {
@@ -35,7 +34,6 @@ namespace _20180829RomanNumbers
             AssertEq(1000, "M");
         }
 
-
         [TestMethod]
         public void RecognizeSingleCompositeNumbers()
         {
@@ -46,7 +44,6 @@ namespace _20180829RomanNumbers
             AssertEq(400, "CD");
             AssertEq(900, "CM");
         }
-
 
         [TestMethod]
         public void RecognizeArbitraryNumbers()
