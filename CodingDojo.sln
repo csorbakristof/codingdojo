@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180829RomanNumbers", "201
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180830PrimeFactors", "20180830PrimeFactors\20180830PrimeFactors.csproj", "{7B615C6D-E6FA-4107-801F-68358453B627}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180831PokerHands", "20180831PokerHands\20180831PokerHands.csproj", "{93CAF430-A012-4B98-BEBD-4615278251C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -239,6 +241,22 @@ Global
 		{7B615C6D-E6FA-4107-801F-68358453B627}.Release|x64.Build.0 = Release|Any CPU
 		{7B615C6D-E6FA-4107-801F-68358453B627}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B615C6D-E6FA-4107-801F-68358453B627}.Release|x86.Build.0 = Release|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Debug|ARM.Build.0 = Debug|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Debug|x64.Build.0 = Debug|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Debug|x86.Build.0 = Debug|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Release|ARM.ActiveCfg = Release|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Release|ARM.Build.0 = Release|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Release|x64.ActiveCfg = Release|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Release|x64.Build.0 = Release|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Release|x86.ActiveCfg = Release|Any CPU
+		{93CAF430-A012-4B98-BEBD-4615278251C3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
