@@ -53,9 +53,29 @@ namespace _20180831PokerHands
                 Array.IndexOf(values, (obj as Card).Value);
         }
 
+        public static bool operator >(Card a, Card b)
+        {
+            return ordinalValue(a.Value) > ordinalValue(b.Value);
+        }
+
+        public static bool operator <(Card a, Card b)
+        {
+            return ordinalValue(a.Value) < ordinalValue(b.Value);
+        }
+
+        private static int ordinalValue(char ch)
+        {
+            return Array.IndexOf(values, ch);
+        }
+
         public override string ToString()
         {
             return $"{Suit}{Value}";
+        }
+
+        internal bool ValueEquals(Card other)
+        {
+            return ordinalValue(this.Value) == ordinalValue(other.Value);
         }
     }
 }

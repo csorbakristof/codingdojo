@@ -76,7 +76,6 @@ namespace _20180831PokerHands
             Assert.AreNotEqual(Poker.Rank.Straight, Poker.Eval("C2 D3 S4 S6 CT").rank);
         }
 
-
         const string testPair = "C2 D3 S3 HJ HA";
         [TestMethod]
         public void RecognizePair()
@@ -89,6 +88,45 @@ namespace _20180831PokerHands
         public void RecognizeTwoPairs()
         {
             AssertEval(testTwoPairs, Poker.Rank.TwoPairs);
+        }
+
+        const string testTerc = "C2 SK D9 C9 H9";
+        [TestMethod]
+        public void RecognizeTerc()
+        {
+            AssertEval(testTerc, Poker.Rank.Terc);
+        }
+
+        const string testStraightFlush = "C2 C3 C4 C5 C6";
+        [TestMethod]
+        public void RecognizeStraightFlush()
+        {
+            AssertEval(testStraightFlush, Poker.Rank.StraightFlush);
+        }
+
+
+        [TestMethod]
+        public void ComparisonOfDifferents()
+        {
+            Assert.IsTrue(Poker.IsBiggerCompare(testStraightFlush, testTerc));
+            Assert.IsTrue(Poker.IsBiggerCompare(testTerc, testTwoPairs));
+            Assert.IsTrue(Poker.IsBiggerCompare(testTwoPairs, testPair));
+            Assert.IsTrue(Poker.IsBiggerCompare(testFlush, testStraight));
+            Assert.IsTrue(Poker.IsBiggerCompare(testStraightFlush, testFlush));
+        }
+
+
+        [TestMethod]
+        public void ComparisonOfSameRank()
+        {
+            // High cards, Ace vs King
+            Assert.IsTrue(Poker.IsBiggerCompare("CA CJ C8 D4 S9", "CK C7 C8 D4 S9"));
+            // Flush, Ace vs King
+            Assert.IsTrue(Poker.IsBiggerCompare("CA CJ C8 C4 C9", "CK C7 C8 C4 C9"));
+            // Two pairs, second differs
+            Assert.IsTrue(Poker.IsBiggerCompare("CA SA C8 S8 D3", "CA SA C7 S7 D3"));
+            // Two pairs, 5th card differs
+            Assert.IsTrue(Poker.IsBiggerCompare("CA SA C8 S8 D3", "CA SA C8 S8 D2"));
         }
 
         private void AssertEval(string hand, Poker.Rank correctRank)

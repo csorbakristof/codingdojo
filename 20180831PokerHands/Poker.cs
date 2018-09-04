@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace _20180831PokerHands
 {
@@ -6,21 +7,38 @@ namespace _20180831PokerHands
     {
         public enum Rank
         {
-            HighCards, Pair, TwoPairs, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
+            HighCards, Pair, TwoPairs, Terc, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
         }
 
         static public (Rank rank, Card[] cards) Eval(string hand)
         {
             var h = GetHand(hand);
+            if (IsStraightFlush(h))
+                return (Rank.StraightFlush, h);
             if (IsStraight(h))
                 return (Rank.Straight, h);
             if (IsFlush(h))
                 return (Rank.Flush, h);
+            if (IsTerc(h))
+                return (Rank.Terc, h);
             if (IsTwoPair(h))
                 return (Rank.TwoPairs, h);
             if (IsPair(h))
                 return (Rank.Pair, h);
             return (Rank.HighCards, h);
+        }
+
+        private static bool IsStraightFlush(Card[] h)
+        {
+            return IsStraight(h) && IsFlush(h);
+        }
+
+        private static bool IsTerc(Card[] h)
+        {
+            for (int i = 0; i < 3; i++)
+                if (h[i].Value == h[i + 2].Value) // Note: h is ordered
+                    return true;
+            return false;
         }
 
         private static bool IsTwoPair(Card[] h)
@@ -71,6 +89,18 @@ namespace _20180831PokerHands
             string[] cardStrings = hand.Split(' ');
             var cards = cardStrings.Select(s => new Card(s)).OrderByDescending(c=>c).ToArray();
             return cards;
+        }
+
+        internal static bool IsBiggerCompare(string bigger, string smaller)
+        {
+            var b = Eval(bigger);
+            var s = Eval(smaller);
+            if (b.rank != s.rank)
+                return b.rank > s.rank;
+            for (int i = 0; i < 5; i++)
+                if (!b.cards[i].ValueEquals(s.cards[i]))
+                    return b.cards[i] > s.cards[i];
+            return false;   // Equals means not bigger...
         }
     }
 }
