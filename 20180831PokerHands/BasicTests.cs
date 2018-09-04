@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace _20180831PokerHands
@@ -58,14 +57,14 @@ namespace _20180831PokerHands
         [TestMethod]
         public void RecognizeHighestCard()
         {
-            AssertEval("C2 C3 D4 D6 HT", (Poker.Rank.HighCards, "HT"));
+            AssertEval("C2 C3 D4 D6 HT", Poker.Rank.HighCards);
         }
 
         const string testFlush = "C2 C3 C4 C6 CT";
         [TestMethod]
         public void RecognizeFlush()
         {
-            AssertEval(testFlush, (Poker.Rank.Flush, "CT"));
+            AssertEval(testFlush, Poker.Rank.Flush);
             Assert.AreNotEqual(Poker.Rank.Flush, Poker.Eval("C2 D3 C4 S6 CT").rank);
         }
 
@@ -73,7 +72,7 @@ namespace _20180831PokerHands
         [TestMethod]
         public void RecognizeStraight()
         {
-            AssertEval(testStraight, (Poker.Rank.Straight, "CJ"));
+            AssertEval(testStraight, Poker.Rank.Straight);
             Assert.AreNotEqual(Poker.Rank.Straight, Poker.Eval("C2 D3 S4 S6 CT").rank);
         }
 
@@ -82,78 +81,19 @@ namespace _20180831PokerHands
         [TestMethod]
         public void RecognizePair()
         {
-            AssertEval(testPair, (Poker.Rank.Pair, "3"));
+            AssertEval(testPair, Poker.Rank.Pair);
         }
 
         const string testTwoPairs = "C2 D3 S3 HJ CJ";
         [TestMethod]
-        [Ignore]
         public void RecognizeTwoPairs()
         {
-            AssertEval(testTwoPairs, (Poker.Rank.TwoPairs, "J"));
+            AssertEval(testTwoPairs, Poker.Rank.TwoPairs);
         }
 
-        private void AssertEval(string hand, (Poker.Rank rank, string value) correct)
+        private void AssertEval(string hand, Poker.Rank correctRank)
         {
-            Assert.AreEqual(correct, Poker.Eval(hand));
-        }
-    }
-
-
-    internal static class Poker
-    {
-        public enum Rank
-        {
-            HighCards, Pair, TwoPairs, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
-        }
-
-        static public (Rank rank, string value) Eval(string hand)
-        {
-            var h = GetHand(hand);
-            var rank = Rank.HighCards;
-            string value = h[0].ToString();
-            var v = IsPair(h);
-            if (v != null)
-            {
-                value = v;
-                rank = Rank.Pair;
-            }
-            if (IsStraight(h))
-                rank = Rank.Straight;
-            if (IsFlush(h))
-                rank = Rank.Flush;
-            return (rank, value);
-        }
-
-        private static string IsPair(Card[] h)
-        {
-            for (int i = 0; i < 4; i++)
-                if (h[i].Value == h[i + 1].Value)
-                    return h[i].Value.ToString();
-            return null;
-        }
-
-        private static bool IsStraight(Card[] h)
-        {
-            for (int i = 0; i < 4; i++)
-                if (h[i].CompareTo(h[i + 1]) != 1)
-                    return false;
-            return true;
-        }
-
-        private static bool IsFlush(Card[] cards)
-        {
-            for (int i = 1; i < 5; i++)
-                if (!cards[0].SuitEquals(cards[i]))
-                    return false;
-            return true;
-        }
-
-        internal static Card[] GetHand(string hand)
-        {
-            string[] cardStrings = hand.Split(' ');
-            var cards = cardStrings.Select(s => new Card(s)).OrderByDescending(c=>c).ToArray();
-            return cards;
+            Assert.AreEqual(correctRank, Poker.Eval(hand).rank);
         }
     }
 }
