@@ -39,13 +39,6 @@ namespace _20180831PokerHands
             return (Suit == other.Suit);
         }
 
-        internal static bool IsHigher(char valueH, char valueL)
-        {
-            int idxH = Array.IndexOf(values, valueH);
-            int idxL = Array.IndexOf(values, valueL);
-            return (idxH > idxL);
-        }
-
         public int CompareTo(object obj)
         {
             // Positive return value means this > obj.
@@ -53,29 +46,14 @@ namespace _20180831PokerHands
                 Array.IndexOf(values, (obj as Card).Value);
         }
 
-        public static bool operator >(Card a, Card b)
+        internal bool ValueEquals(Card other)
         {
-            return ordinalValue(a.Value) > ordinalValue(b.Value);
-        }
-
-        public static bool operator <(Card a, Card b)
-        {
-            return ordinalValue(a.Value) < ordinalValue(b.Value);
-        }
-
-        private static int ordinalValue(char ch)
-        {
-            return Array.IndexOf(values, ch);
+            return this.CompareTo(other) == 0;
         }
 
         public override string ToString()
         {
             return $"{Suit}{Value}";
-        }
-
-        internal bool ValueEquals(Card other)
-        {
-            return ordinalValue(this.Value) == ordinalValue(other.Value);
         }
     }
 }

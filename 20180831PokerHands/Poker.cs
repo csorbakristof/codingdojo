@@ -53,7 +53,7 @@ namespace _20180831PokerHands
                     else if (h[i].Value != h[firstIndexOfPair1].Value)
                         firstIndexOfPair2 = i;
                     else
-                        return false;    // This is ThreeOfAKind
+                        return false;    // This is ThreeOfAKind (but will not get here...)
                 }
             if (firstIndexOfPair2 != -1)
                 return true;
@@ -99,7 +99,7 @@ namespace _20180831PokerHands
                 return b.rank > s.rank;
             for (int i = 0; i < 5; i++)
                 if (!b.cards[i].ValueEquals(s.cards[i]))
-                    return b.cards[i] > s.cards[i];
+                    return b.cards[i].CompareTo(s.cards[i]) > 0;
             return false;   // Equals means not bigger...
         }
     }

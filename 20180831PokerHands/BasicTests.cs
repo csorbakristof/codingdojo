@@ -129,6 +129,27 @@ namespace _20180831PokerHands
             Assert.IsTrue(Poker.IsBiggerCompare("CA SA C8 S8 D3", "CA SA C8 S8 D2"));
         }
 
+        [TestMethod]
+        public void ComparisonOfSameHands()
+        {
+            Assert.IsFalse(Poker.IsBiggerCompare(testPair, testPair));
+        }
+
+        [TestMethod]
+        public void EqualityAndHashCode()
+        {
+            (var dummy, Card[] c) = Poker.Eval(testStraightFlush);
+            Assert.AreNotEqual(c[0].GetHashCode(), c[1].GetHashCode());
+            Assert.IsFalse(c[0].Equals(c[1]));
+            Assert.IsFalse(c[0].Equals(new object()));
+        }
+
+        [TestMethod]
+        public void TestToString()
+        {
+            Assert.AreEqual("S9", (new Card() { Suit = 'S', Value = '9' }).ToString());
+        }
+
         private void AssertEval(string hand, Poker.Rank correctRank)
         {
             Assert.AreEqual(correctRank, Poker.Eval(hand).rank);
