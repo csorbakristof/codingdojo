@@ -31,12 +31,12 @@ namespace _20180905PeerReviewBingo
                 Assert.AreEqual(0, b.ColumnSum[i]);
                 Assert.AreEqual(0, b.RowSum[i]);
             }
-            b.UpdateColumnCountersWithNewElement(2,3);
+            b.SetElement(2,3);
             Assert.AreEqual(1, b.ColumnSum[3]);
             Assert.AreEqual(1, b.RowSum[2]);
             Assert.AreEqual(0, b.ColumnSum[2]);
             Assert.AreEqual(0, b.RowSum[3]);
-            b.UpdateColumnCountersWithNewElement(2,3);
+            b.SetElement(2,3);
             Assert.AreEqual(2, b.ColumnSum[3]);
             Assert.AreEqual(2, b.RowSum[2]);
             Assert.AreEqual(0, b.ColumnSum[2]);
@@ -47,12 +47,12 @@ namespace _20180905PeerReviewBingo
         public void EnableMaskTest()
         {
             b.Init(5);
-            b.ColumnSum[1] = 1;
-            b.ColumnSum[2] = 2;
+            b.ColumnSum[1] = 2;
+            b.ColumnSum[2] = 1;
             b.RowSum[1] = 1;
             b.RowSum[2] = 2;
-            Assert.IsTrue(b.IsEnabled(1, 1, 2));
-            Assert.IsFalse(b.IsEnabled(2, 2, 2));
+            Assert.IsTrue(b.IsEnabled(1, 2, 2));
+            Assert.IsFalse(b.IsEnabled(2, 1, 2));
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace _20180905PeerReviewBingo
             b.ColumnSum = new int[5] { 2, 1, 2, 2, 2 };
             b.RowSum = new int[5] { 2, 1, 2, 2, 2 };
             b.random = new Random(1);
-            var location = b.GetRandomAllowedLocation();
+            var location = b.GetRandomAllowedLocation(b.ReviewNumWithDiagonal);
             Assert.AreEqual(1, location.row);
             Assert.AreEqual(1, location.col);
         }
