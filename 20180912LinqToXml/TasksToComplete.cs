@@ -61,9 +61,9 @@ namespace _20180912LinqToXml
         }
 
         [TestMethod]
-        public void GetRectanglePairsCloseToEachOther()
+        public void GetSingleRectanglePairCloseToEachOther()
         {
-            (string id1, string id2) = s.GetRectanglePairsCloseToEachOther();
+            (string id1, string id2) = s.GetSingleRectanglePairCloseToEachOther(5.0);
             Assert.IsTrue((id1 == "rectBlue" && id2 == "rectWhite")
                 || (id1 == "rectWhite" && id2 == "rectBlue"));
         }
