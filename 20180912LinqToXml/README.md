@@ -7,3 +7,7 @@ Use additional unit tests to apply TDD in your work!
 
 The unit tests checking your solution are targeting the XML (SVG) file rectangles.svg.
 You can have a look at the contents of the image in rectangles.png.
+
+
+>>> Legyen egy pár demó zöld unit teszt benne a kiadott keretben is!
+>>> Howtodebug guide: külön változóba, toArray...

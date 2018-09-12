@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace _20180912LinqToXml
@@ -9,10 +9,15 @@ namespace _20180912LinqToXml
     [TestClass]
     public class TasksToComplete
     {
-        private Solutions s = new Solutions(@"..\..\rectangles.svg");
+        private readonly Solutions s;
+
+        public TasksToComplete()
+        {
+            s = new Solutions("rectangles.svg");
+        }
 
         [TestMethod]
-        public void Texts()
+        public void CountTextsWithValue()
         {
             Assert.AreEqual(3, s.CountTextsWithValue("Alma"));
             Assert.AreEqual(1, s.CountTextsWithValue("Négyzetek"));
@@ -21,41 +26,42 @@ namespace _20180912LinqToXml
         }
 
         [TestMethod]
-        public void Rectangles()
+        public void GetAllRectangles()
         {
             Assert.AreEqual(7, s.GetAllRectangles().Count());
         }
 
         [TestMethod]
-        public void RectanglesWithTextInside()
+        public void GetRectanglesWithTextInside()
         {
             Assert.AreEqual(3, s.GetRectanglesWithTextInside().Count());
         }
 
         [TestMethod]
-        public void StrokeWidth()
+        public void GetRectanglesWithStrokeWidth()
         {
             Assert.AreEqual(2, s.GetRectanglesWithStrokeWidth(1).Count());
             Assert.AreEqual(5, s.GetRectanglesWithStrokeWidth(2).Count());
         }
 
         [TestMethod]
-        public void ColorOfRectanglesWithGivenX()
+        public void GetColorOfRectanglesWithGivenX()
         {
             var correctColors = new string[] { "#ff0000", "#0000ff", "#ffffff" };
-            Assert.IsTrue(correctColors.SequenceEqual(s.GetColorOfRectanglesWithGivenX(30)));
+            var colors = s.GetColorOfRectanglesWithGivenX(30);
+            Assert.IsTrue(UnorderedCompareSequences(correctColors, colors));
         }
 
         [TestMethod]
-        public void TextInRectangleWithGivenColor()
+        public void GetSingleTextInSingleRectangleWithColor()
         {
-            Assert.AreEqual("Barack", s.GetTextInRectangleWithColor("#ff00ff"));
-            Assert.AreEqual(null, s.GetTextInRectangleWithColor("#00ff00"));
-            Assert.AreEqual("Alma", s.GetTextInRectangleWithColor("#ffffff"));
+            Assert.AreEqual("Barack", s.GetSingleTextInSingleRectangleWithColor("#ff00ff"));
+            Assert.AreEqual(null, s.GetSingleTextInSingleRectangleWithColor("#00ff00"));
+            Assert.AreEqual("Alma", s.GetSingleTextInSingleRectangleWithColor("#ffffff"));
         }
 
         [TestMethod]
-        public void GetRectanglesCloseToEachOther()
+        public void GetRectanglePairsCloseToEachOther()
         {
             (string id1, string id2) = s.GetRectanglePairsCloseToEachOther();
             Assert.IsTrue((id1 == "rectBlue" && id2 == "rectWhite")
@@ -70,7 +76,7 @@ namespace _20180912LinqToXml
         }
 
         [TestMethod]
-        public void RectLocationById()
+        public void GetRectangleLocationById()
         {
             (double x, double y) = s.GetRectangleLocationById("rectTeal");
             Assert.AreEqual(80.0, x, 0.001);
@@ -78,13 +84,13 @@ namespace _20180912LinqToXml
         }
 
         [TestMethod]
-        public void RectWithLargestY()
+        public void GetIdOfRectangeWithLargestY()
         {
             Assert.AreEqual("rectTeal", s.GetIdOfRectangeWithLargestY());
         }
 
         [TestMethod]
-        public void RectanglesAtLeastTwiceAsHighAsWide()
+        public void GetRectanglesAtLeastTwiceAsHighAsWide()
         {
             var ids = s.GetRectanglesAtLeastTwiceAsHighAsWide().ToArray();
             Assert.AreEqual(2, ids.Length);
@@ -93,10 +99,29 @@ namespace _20180912LinqToXml
         }
 
         [TestMethod]
-        public void TextsOutsideRectangles()
+        public void GetTextsOutsideRectangles()
         {
             var correctTexts = new string[] { "Alma", "Körte", "Négyzetek" };
-            Assert.IsTrue(correctTexts.SequenceEqual(s.GetTextsOutsideRectangles().OrderBy(s=>s).ToArray()));
+            Assert.IsTrue(UnorderedCompareSequences(correctTexts, s.GetTextsOutsideRectangles()));
         }
+
+        #region Helpers for the unit tests and their tests
+
+        [TestMethod]
+        public void TestUnorderedCompareSequences()
+        {
+            Assert.IsTrue(UnorderedCompareSequences(new int[] {1, 2, 3}, new int[] {1, 2, 3}));
+            Assert.IsTrue(UnorderedCompareSequences(new int[] {1, 2, 3}, new int[] {1, 3, 2}));
+            Assert.IsTrue(UnorderedCompareSequences(new int[] {1, 2, 2}, new int[] {2, 1, 2}));
+            Assert.IsFalse(UnorderedCompareSequences(new int[] { 1 }, new int[] { 1, 2 }));
+            Assert.IsFalse(UnorderedCompareSequences(new int[] { 1 }, new int[] { 2, 3}));
+        }
+
+        private bool UnorderedCompareSequences<T>(IEnumerable<T> s1, IEnumerable<T> s2)
+        {
+            return s1.OrderBy(i => i).SequenceEqual(s2.OrderBy(j => j));
+        }
+        #endregion
+
     }
 }
