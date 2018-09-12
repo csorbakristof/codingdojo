@@ -106,7 +106,6 @@ namespace _20180912LinqToXml
         }
 
         #region Helpers for the unit tests and their tests
-
         [TestMethod]
         public void TestUnorderedCompareSequences()
         {
@@ -122,6 +121,5 @@ namespace _20180912LinqToXml
             return s1.OrderBy(i => i).SequenceEqual(s2.OrderBy(j => j));
         }
         #endregion
-
     }
 }

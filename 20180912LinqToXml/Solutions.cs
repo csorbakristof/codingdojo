@@ -32,7 +32,7 @@ namespace _20180912LinqToXml
 
         internal IEnumerable<XElement> GetRectanglesWithTextInside()
         {
-            return Rects.Where( r => Texts.Any(t => IsInside(r, GetTextLocation(t))) );
+            return Rects.Where( r => Texts.Any(t => IsInside(r, t.GetLocation())) );
         }
 
         internal IEnumerable<XElement> GetRectanglesWithStrokeWidth(int width)
@@ -43,15 +43,8 @@ namespace _20180912LinqToXml
         internal IEnumerable<string> GetColorOfRectanglesWithGivenX(double x)
         {
             return Rects
-                .Where(r => double.Parse(r.Attribute("x").Value) == x)
-                .Select(r=>GetColorOfRectangle(r));
-        }
-
-        private string GetColorOfRectangle(XElement rect)
-        {
-            string style = rect.Attribute("style").Value;
-            int idx = style.IndexOf("fill:");
-            return style.Substring(idx + 5, 7);
+                .Where(r => r.GetX() == x)
+                .Select(r=>r.GetFillColor());
         }
 
         internal (string id1, string id2) GetSingleRectanglePairCloseToEachOther(double maxDistance)
@@ -63,30 +56,9 @@ namespace _20180912LinqToXml
             return (null, null);
         }
 
-        private bool AreClose(XElement r1, XElement r2, double maxDistance)
-        {
-            var x1 = double.Parse(r1.Attribute("x").Value);
-            var y1 = double.Parse(r1.Attribute("y").Value);
-            var w1 = double.Parse(r1.Attribute("width").Value);
-            var h1 = double.Parse(r1.Attribute("height").Value);
-            var x2 = double.Parse(r2.Attribute("x").Value);
-            var y2 = double.Parse(r2.Attribute("y").Value);
-            var w2 = double.Parse(r2.Attribute("width").Value);
-            var h2 = double.Parse(r2.Attribute("height").Value);
-            if (x1 + w1 < x2 - maxDistance)
-                return false;
-            if (y1 + h1 < y2 - maxDistance)
-                return false;
-            if (x2 + w2 + maxDistance < x1)
-                return false;
-            if (y2 + h2 + maxDistance < y1)
-                return false;
-            return true;
-        }
-
         internal string ConcatenateOrderedTextsInsideRectangles()
         {
-            var txt = Texts.Where(t => Rects.Any(r => IsInside(r, GetTextLocation(t))))
+            var txt = Texts.Where(t => Rects.Any(r => IsInside(r, t.GetLocation())))
                 .Select(t => t.Value).OrderBy(s => s);
             var str = txt.Aggregate(new StringBuilder(), (sb, t) => sb.Append($", {t}"), sb => sb.ToString())
                 .ToString();
@@ -96,7 +68,7 @@ namespace _20180912LinqToXml
         internal IEnumerable<string> GetTextsOutsideRectangles()
         {
             return Texts
-                .Where(t => !Rects.Any(r => IsInside(r, GetTextLocation(t))))
+                .Where(t => !Rects.Any(r => IsInside(r, t.GetLocation())))
                 .Select(t => t.Value);
         }
 
@@ -105,49 +77,25 @@ namespace _20180912LinqToXml
             var rect = GetRectanglesWithColor(color).First();
             foreach(var t in Texts)
             {
-                var pos = GetTextLocation(t);
+                var pos = t.GetLocation();
                 if (IsInside(rect, pos))
                     return t.Value;
             }
             return null;
         }
 
-        private IEnumerable<XElement> GetRectanglesWithColor(string color)
-        {
-            return Rects.Where(r => GetColorOfRectangle(r) == color);
-        }
-
-        private (double, double) GetTextLocation(XElement text)
-        {
-            var x = double.Parse(text.Attribute("x").Value);
-            var y = double.Parse(text.Attribute("y").Value);
-            return (x, y);
-        }
-
-        private bool IsInside(XElement rect, (double x, double y) p)
-        {
-            var x = double.Parse(rect.Attribute("x").Value);
-            var y = double.Parse(rect.Attribute("y").Value);
-            var w = double.Parse(rect.Attribute("width").Value);
-            var h = double.Parse(rect.Attribute("height").Value);
-            return (x <= p.x && p.x <= x + w && y <= p.y && p.y <= y + h);
-        }
-
         internal (double x, double y) GetRectangleLocationById(string id)
         {
             return Rects
                 .Where(r => r.Attribute("id").Value == id)
-                .Select(r => (
-                    double.Parse(r.Attribute("x").Value),
-                    double.Parse(r.Attribute("y").Value)))
-                .Single();
+                .Select(r => r.GetLocation()).Single();
         }
 
         internal string GetIdOfRectangeWithLargestY()
         {
-            var maxY = Rects.Select(r => double.Parse(r.Attribute("y").Value)).Max();
+            var maxY = Rects.Select(r => r.GetY()).Max();
             return Rects
-                .First(r => Math.Abs(double.Parse(r.Attribute("y").Value) - maxY) < 0.001)
+                .First(r => Math.Abs(r.GetY() - maxY) < 0.001)
                 .Attribute("id").Value;
         }
 
@@ -155,12 +103,42 @@ namespace _20180912LinqToXml
         {
             return Rects.Where(r => AtLeastTwiceAsHighAsWide(r)).Select(r=>r.Attribute("id").Value);
         }
+        #endregion
 
         private bool AtLeastTwiceAsHighAsWide(XElement rect)
         {
-            return double.Parse(rect.Attribute("height").Value)
-                >= 2.0 * double.Parse(rect.Attribute("width").Value);
+            return rect.GetHeight() >= 2.0 * rect.GetWidth();
         }
-        #endregion
+
+        private IEnumerable<XElement> GetRectanglesWithColor(string color)
+        {
+            return Rects.Where(r => r.GetFillColor() == color);
+        }
+
+        private bool IsInside(XElement rect, (double x, double y) p)
+        {
+            (double left, double top, double right, double bottom) = GetRectBoundaries(rect);
+            return (left <= p.x && p.x <= right && top <= p.y && p.y <= bottom);
+        }
+
+        private bool AreClose(XElement r1, XElement r2, double maxDistance)
+        {
+            (double left1, double top1, double right1, double bottom1) = GetRectBoundaries(r1);
+            (double left2, double top2, double right2, double bottom2) = GetRectBoundaries(r2);
+            return (!(
+                right1 < left2 - maxDistance ||
+                bottom1 < top2 - maxDistance ||
+                right2 + maxDistance < left1 ||
+                bottom2 + maxDistance < top1));
+        }
+
+        private (double left,double top,double right,double bottom) GetRectBoundaries(XElement r)
+        {
+            var x = r.GetX();
+            var y = r.GetY();
+            var w = r.GetWidth();
+            var h = r.GetHeight();
+            return (x, y, x + w - 1, y + h - 1);
+        }
     }
 }

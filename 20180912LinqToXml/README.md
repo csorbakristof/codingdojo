@@ -11,3 +11,8 @@ You can have a look at the contents of the image in rectangles.png.
 
 >>> Legyen egy pár demó zöld unit teszt benne a kiadott keretben is!
 >>> Howtodebug guide: külön változóba, toArray...
+
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/basic-queries-linq-to-xml
+
+TODO: refactor solution, refactor unit tests
+maybe add further tests as "tdd"...
