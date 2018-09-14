@@ -103,7 +103,40 @@ namespace _20180912LinqToXml
         {
             return Rects.Where(r => AtLeastTwiceAsHighAsWide(r)).Select(r=>r.Attribute("id").Value);
         }
+
+        internal ILookup<string, string> GetBoundingRectangleColorListForEveryText()
+        {
+            return Texts.Select(t => (Text: t, Rect: Rects.SingleOrDefault(r => IsInside(r, t.GetLocation()))))
+                .Where(i=>i.Rect!=null).ToLookup(i => i.Text.Value, i=>i.Rect?.GetFillColor());
+        }
+
+        internal (double w, double h) GetEffectiveWidthAndHeight(int strokeThickness)
+        {
+            var rects = GetRectanglesWithStrokeWidth(strokeThickness);  // emph reuse!
+            Boundary boundary = rects.Aggregate(new Boundary(), (b, r) => { b.UpdateToCoverRect(r); return b; });
+            return (w: boundary.Width, h: boundary.Height);
+
+        }
         #endregion
+
+        class Boundary
+        {
+            public double Left = double.MaxValue;
+            public double Top = double.MaxValue;
+            public double Right = double.MinValue;
+            public double Bottom = double.MinValue;
+
+            public double Width => Right - Left + 1;
+            public double Height => Bottom - Top + 1;
+
+            public void UpdateToCoverRect(XElement rect)
+            {
+                Left = Math.Min(Left, rect.GetX());
+                Right = Math.Max(Right, rect.GetX() + rect.GetWidth() - 1);
+                Top = Math.Min(Top, rect.GetY());
+                Bottom = Math.Max(Bottom, rect.GetY() + rect.GetHeight() - 1);
+            }
+        }
 
         private bool AtLeastTwiceAsHighAsWide(XElement rect)
         {

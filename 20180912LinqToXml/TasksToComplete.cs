@@ -105,6 +105,27 @@ namespace _20180912LinqToXml
             Assert.IsTrue(UnorderedCompareSequences(correctTexts, s.GetTextsOutsideRectangles()));
         }
 
+        [TestMethod]
+        public void GetBoundingRectangleColorListForEveryText()
+        {
+            var result = s.GetBoundingRectangleColorListForEveryText();
+            Assert.IsTrue(UnorderedCompareSequences<string>(new string[] { "#ffff00", "#ffffff" }, result["Alma"]));
+            Assert.IsTrue(UnorderedCompareSequences<string>(new string[] { "#ff00ff" }, result["Barack"]));
+            Assert.IsFalse(result.Contains("Szilva"));
+            Assert.IsFalse(result["Körte"].Any());
+        }
+
+        [TestMethod]
+        public void GetEffectiveWidthAndHeightWithGivenStrokeThickness()
+        {
+            (double w1, double h1) = s.GetEffectiveWidthAndHeight(1);
+            Assert.AreEqual(110.0, w1, 0.001);
+            Assert.AreEqual(110.0, h1, 0.001);
+            (double w2, double h2) = s.GetEffectiveWidthAndHeight(2);
+            Assert.AreEqual(140.0, w2, 0.001);
+            Assert.AreEqual(190.0, h2, 0.001);
+        }
+
         #region Helpers for the unit tests and their tests
         [TestMethod]
         public void TestUnorderedCompareSequences()
