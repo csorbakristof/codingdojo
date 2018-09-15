@@ -50,6 +50,5 @@ namespace _20180912LinqToXml
         {
             return (e.GetX(), e.GetY());
         }
-
     }
 }

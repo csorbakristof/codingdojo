@@ -19,27 +19,35 @@ namespace _20180912LinqToXml
         private IEnumerable<XElement> Rects => root.Descendants(ns + "rect");
         private IEnumerable<XElement> Texts => root.Descendants(ns + "text");
 
-        #region Methods representing the solution of the laboratory
+        #region Methods representing the solutions of the tasks
+        // Hány olyan szöveg van, aminek ez a tartalma?
         internal int CountTextsWithValue(string v)
         {
             return root.Descendants(ns + "text").Count(e => e.Value == v);
         }
 
+        // Minden rect elem felsorolása
         internal IEnumerable<XElement> GetAllRectangles()
         {
             return Rects;
         }
 
+        // Minden olyan rect elem felsorolása, amiben van bármilyen szöveg.
+        //  (Olyan rect, aminek a területén van egy szövegnek a kezdőpontja (x,y).)
         internal IEnumerable<XElement> GetRectanglesWithTextInside()
         {
             return Rects.Where( r => Texts.Any(t => IsInside(r, t.GetLocation())) );
         }
 
+        // Minden olyan rect elem felsorolása, aminek a kerete adott vastagságú.
+        //  A keretvastagság (más beállításokkal együtt) a "style" szöveges attribútumban
+        //  szerepel, pl. "stroke-width:2".
         internal IEnumerable<XElement> GetRectanglesWithStrokeWidth(int width)
         {
             return Rects.Where(r => r.Attribute("style").Value.Contains($"stroke-width:{width}"));
         }
 
+        // Adott x koordinátájú téglalapok színének visszaadása szövegesen (pl. piros esetén "#ff0000").
         internal IEnumerable<string> GetColorOfRectanglesWithGivenX(double x)
         {
             return Rects
@@ -47,6 +55,8 @@ namespace _20180912LinqToXml
                 .Select(r=>r.GetFillColor());
         }
 
+        // Az egyetlen olyan téglalap pár visszaadása (id attribútumuk értékével), amik legfeljebb
+        //  adott távolságra vannak egymástól.
         internal (string id1, string id2) GetSingleRectanglePairCloseToEachOther(double maxDistance)
         {
             foreach(var r1 in Rects)
@@ -56,6 +66,8 @@ namespace _20180912LinqToXml
             return (null, null);
         }
 
+        // Minden téglalapon belüli szöveg ABC sorrendben egymás mögé fűzése, ", "-zel elválasztva.
+        //  (Az "OrderBy(s=>s)" rendezése most elegendő lesz.)
         internal string ConcatenateOrderedTextsInsideRectangles()
         {
             var txt = Texts.Where(t => Rects.Any(r => IsInside(r, t.GetLocation())))
@@ -65,6 +77,7 @@ namespace _20180912LinqToXml
             return str.Substring(2);
         }
 
+        // Minden téglalapon kívüli szöveg felsorolása.
         internal IEnumerable<string> GetTextsOutsideRectangles()
         {
             return Texts
@@ -72,6 +85,9 @@ namespace _20180912LinqToXml
                 .Select(t => t.Value);
         }
 
+        // Adott színű téglalapon belüli szöveg visszaadása.
+        //  Feltételezhetjük, hogy csak egyetlen ilyen színű téglalap van és abban egyetlen
+        //  szöveg szerepel.
         internal string GetSingleTextInSingleRectangleWithColor(string color)
         {
             var rect = GetRectanglesWithColor(color).First();
@@ -84,6 +100,7 @@ namespace _20180912LinqToXml
             return null;
         }
 
+        // Az adott ID-jú téglalap pozíciójának (x,y) visszaadása.
         internal (double x, double y) GetRectangleLocationById(string id)
         {
             return Rects
@@ -91,6 +108,7 @@ namespace _20180912LinqToXml
                 .Select(r => r.GetLocation()).Single();
         }
 
+        // A legnagyobb y értékkel rendezkező téglalap ID-jának visszaadása.
         internal string GetIdOfRectangeWithLargestY()
         {
             var maxY = Rects.Select(r => r.GetY()).Max();
@@ -99,23 +117,38 @@ namespace _20180912LinqToXml
                 .Attribute("id").Value;
         }
 
+        // Minden olyan téglalap ID-jának felsorolása, ami legalább kétszer olyan magas mint széles.
         internal IEnumerable<string> GetRectanglesAtLeastTwiceAsHighAsWide()
         {
-            return Rects.Where(r => AtLeastTwiceAsHighAsWide(r)).Select(r=>r.Attribute("id").Value);
+            return Rects.Where(r => IsAtLeastTwiceAsHighAsWide(r)).Select(r=>r.Attribute("id").Value);
         }
 
+        // Egy ILookup visszaadása, mely minden szöveghez megadja az ilyen szöveget tartalmazó
+        //  téglalapok színét. (Az ILookup-ban csak azok a szövegek szerepelnek kulcsként, amikhez van
+        //  is téglalap.)
         internal ILookup<string, string> GetBoundingRectangleColorListForEveryText()
         {
             return Texts.Select(t => (Text: t, Rect: Rects.SingleOrDefault(r => IsInside(r, t.GetLocation()))))
                 .Where(i=>i.Rect!=null).ToLookup(i => i.Text.Value, i=>i.Rect?.GetFillColor());
         }
 
+        // Az adott kontúrszélességű (stroke width) téglalapok által együttesen lefedett terület
+        //  szélességét és magasságát adja meg
         internal (double w, double h) GetEffectiveWidthAndHeight(int strokeThickness)
         {
             var rects = GetRectanglesWithStrokeWidth(strokeThickness);  // emph reuse!
-            Boundary boundary = rects.Aggregate(new Boundary(), (b, r) => { b.UpdateToCoverRect(r); return b; });
+            Boundary boundary = rects.Aggregate(
+                new Boundary(),
+                (b, r) => { b.UpdateToCoverRect(r); return b; });
             return (w: boundary.Width, h: boundary.Height);
 
+        }
+
+        // Adott ID-jú group-ban lévő téglalapok színét sorolja fel.
+        internal IEnumerable<string> GetColorsOfRectsInGroup(string id)
+        {
+            var group = root.Descendants(ns + "g").Single(e => e.Attribute("id").Value == id);
+            return group.Descendants(ns + "rect").Select(r => r.GetFillColor());
         }
         #endregion
 
@@ -138,7 +171,7 @@ namespace _20180912LinqToXml
             }
         }
 
-        private bool AtLeastTwiceAsHighAsWide(XElement rect)
+        private bool IsAtLeastTwiceAsHighAsWide(XElement rect)
         {
             return rect.GetHeight() >= 2.0 * rect.GetWidth();
         }

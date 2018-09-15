@@ -51,18 +51,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Tdd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solutions.cs" />
-    <Compile Include="TasksToComplete.cs" />
+    <Compile Include="TaskTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="rectangles.png" />
-    <Content Include="rectangles.svg">
+    <None Include="rectangles2.png" />
+    <Content Include="rectangles2.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="rectangles1.png" />
+    <Content Include="rectangles1.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
