@@ -1,0 +1,9 @@
+﻿## Kiadott keret:
+- legyen benne zöld unit teszt
+- A Solution helper metódusait csak fejléc szinten, ajánlásként soroljam fel.
+
+## Videóban:
+- refactor
+- egy nem triviális bezöldítés (hasonló komplexitású, mint a többi feladat)
+
+

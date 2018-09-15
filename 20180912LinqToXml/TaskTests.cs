@@ -17,6 +17,13 @@ namespace _20180912LinqToXml
         }
 
         [TestMethod]
+        public void GetAllRectangles()
+        {
+            Assert.AreEqual(7, s1.GetAllRectangles().Count());
+            Assert.AreEqual(12, s2.GetAllRectangles().Count());
+        }
+
+        [TestMethod]
         public void CountTextsWithValue()
         {
             Assert.AreEqual(1, s1.CountTextsWithValue("Négyzetek"));
@@ -29,20 +36,6 @@ namespace _20180912LinqToXml
             Assert.AreEqual(3, s2.CountTextsWithValue("Barack"));
             Assert.AreEqual(1, s2.CountTextsWithValue("Banán"));
             Assert.AreEqual(2, s2.CountTextsWithValue("Meggy"));
-        }
-
-        [TestMethod]
-        public void GetAllRectangles()
-        {
-            Assert.AreEqual(7, s1.GetAllRectangles().Count());
-            Assert.AreEqual(12, s2.GetAllRectangles().Count());
-        }
-
-        [TestMethod]
-        public void GetRectanglesWithTextInside()
-        {
-            Assert.AreEqual(3, s1.GetRectanglesWithTextInside().Count());
-            Assert.AreEqual(8, s2.GetRectanglesWithTextInside().Count());
         }
 
         [TestMethod]
@@ -65,41 +58,6 @@ namespace _20180912LinqToXml
             correctColors = new string[] { "#ffffff", "#ff0000", "#ff0000", "#0000ff" };
             colors = s2.GetColorOfRectanglesWithGivenX(20);
             Assert.IsTrue(UnorderedCompareSequences(correctColors, colors));
-
-        }
-
-        [TestMethod]
-        public void GetSingleTextInSingleRectangleWithColor()
-        {
-            Assert.AreEqual("Barack", s1.GetSingleTextInSingleRectangleWithColor("#ff00ff"));
-            Assert.AreEqual(null, s1.GetSingleTextInSingleRectangleWithColor("#00ff00"));
-            Assert.AreEqual("Alma", s1.GetSingleTextInSingleRectangleWithColor("#ffffff"));
-
-            Assert.AreEqual("Meggy", s2.GetSingleTextInSingleRectangleWithColor("#ff00ff"));
-            Assert.AreEqual("Szilva", s2.GetSingleTextInSingleRectangleWithColor("#ffffff"));
-        }
-
-        [TestMethod]
-        public void GetSingleRectanglePairCloseToEachOther()
-        {
-            AssertIdPair("rectWhite", "rectBlue", s1.GetSingleRectanglePairCloseToEachOther(5.0));
-            AssertIdPair("rectTeal", "rectGreen", s2.GetSingleRectanglePairCloseToEachOther(5.0));
-        }
-
-        private void AssertIdPair(string correctId1, string correctId2, (string id1, string id2) result)
-        {
-            Assert.IsTrue((result.id1 == correctId1 && result.id2 == correctId2)
-                || (result.id1 == correctId2 && result.id2 == correctId1));
-        }
-
-        [TestMethod]
-        public void ConcatenateOrderedTextsInsideRectangles()
-        {
-            string correctResult = "Alma, Alma, Barack";
-            Assert.AreEqual(correctResult, s1.ConcatenateOrderedTextsInsideRectangles());
-
-            correctResult = "Barack, Barack, Barack, Meggy, Meggy, Szilva, Szilva, Szilva";
-            Assert.AreEqual(correctResult, s2.ConcatenateOrderedTextsInsideRectangles());
         }
 
         [TestMethod]
@@ -136,6 +94,36 @@ namespace _20180912LinqToXml
         }
 
         [TestMethod]
+        public void GetColorsOfRectsInGroup()
+        {
+            var colors = s1.GetColorsOfRectsInGroup("group1");
+            Assert.IsTrue(UnorderedCompareSequences<string>(new string[] { "#ff0000", "#ffff00" },
+                colors));
+
+            colors = s2.GetColorsOfRectsInGroup("group2");
+            Assert.IsTrue(UnorderedCompareSequences<string>(new string[] { "#00ff00", "#0000ff" },
+                colors));
+        }
+
+        [TestMethod]
+        public void GetRectanglesWithTextInside()
+        {
+            Assert.AreEqual(3, s1.GetRectanglesWithTextInside().Count());
+            Assert.AreEqual(8, s2.GetRectanglesWithTextInside().Count());
+        }
+
+        [TestMethod]
+        public void GetSingleTextInSingleRectangleWithColor()
+        {
+            Assert.AreEqual("Barack", s1.GetSingleTextInSingleRectangleWithColor("#ff00ff"));
+            Assert.AreEqual(null, s1.GetSingleTextInSingleRectangleWithColor("#00ff00"));
+            Assert.AreEqual("Alma", s1.GetSingleTextInSingleRectangleWithColor("#ffffff"));
+
+            Assert.AreEqual("Meggy", s2.GetSingleTextInSingleRectangleWithColor("#ff00ff"));
+            Assert.AreEqual("Szilva", s2.GetSingleTextInSingleRectangleWithColor("#ffffff"));
+        }
+
+        [TestMethod]
         public void GetTextsOutsideRectangles()
         {
             var correctTexts = new string[] { "Alma", "Körte", "Négyzetek" };
@@ -143,6 +131,19 @@ namespace _20180912LinqToXml
 
             correctTexts = new string[] { "Banán", "Gyümölcsök" };
             Assert.IsTrue(UnorderedCompareSequences(correctTexts, s2.GetTextsOutsideRectangles()));
+        }
+
+        [TestMethod]
+        public void GetSingleRectanglePairCloseToEachOther()
+        {
+            AssertIdPair("rectWhite", "rectBlue", s1.GetSingleRectanglePairCloseToEachOther(5.0));
+            AssertIdPair("rectTeal", "rectGreen", s2.GetSingleRectanglePairCloseToEachOther(5.0));
+        }
+
+        private void AssertIdPair(string correctId1, string correctId2, (string id1, string id2) result)
+        {
+            Assert.IsTrue((result.id1 == correctId1 && result.id2 == correctId2)
+                || (result.id1 == correctId2 && result.id2 == correctId1));
         }
 
         [TestMethod]
@@ -163,6 +164,16 @@ namespace _20180912LinqToXml
         }
 
         [TestMethod]
+        public void ConcatenateOrderedTextsInsideRectangles()
+        {
+            string correctResult = "Alma, Alma, Barack";
+            Assert.AreEqual(correctResult, s1.ConcatenateOrderedTextsInsideRectangles());
+
+            correctResult = "Barack, Barack, Barack, Meggy, Meggy, Szilva, Szilva, Szilva";
+            Assert.AreEqual(correctResult, s2.ConcatenateOrderedTextsInsideRectangles());
+        }
+
+        [TestMethod]
         public void GetEffectiveWidthAndHeightWithGivenStrokeThickness()
         {
             AssertWidthHeight(s1, 1, 110.0, 110.0);
@@ -176,18 +187,6 @@ namespace _20180912LinqToXml
             (double w, double h) = s.GetEffectiveWidthAndHeight(strokeThickness);
             Assert.AreEqual(width, w, 0.001);
             Assert.AreEqual(height, h, 0.001);
-        }
-
-        [TestMethod]
-        public void GetColorsOfRectsInGroup()
-        {
-            var colors = s1.GetColorsOfRectsInGroup("group1");
-            Assert.IsTrue(UnorderedCompareSequences<string>(new string[] { "#ff0000", "#ffff00" },
-                colors));
-
-            colors = s2.GetColorsOfRectsInGroup("group2");
-            Assert.IsTrue(UnorderedCompareSequences<string>(new string[] { "#00ff00", "#0000ff" },
-                colors));
         }
 
         #region Helpers for the unit tests and their tests
