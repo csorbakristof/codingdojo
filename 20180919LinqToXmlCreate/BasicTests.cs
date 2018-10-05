@@ -20,7 +20,6 @@ namespace _20180919LinqToXmlCreate
             Assert.AreEqual("Mecsek", riolitLocation);
         }
 
-
         [TestMethod]
         public void AddNode()
         {
@@ -29,7 +28,6 @@ namespace _20180919LinqToXmlCreate
             andezit.Add(new XElement("Location", "Cserhát"));
             Assert.AreEqual(1, xml.Descendants("Location").Count(l => l.Value == "Cserhát"));
         }
-
 
         [TestMethod]
         public void GetDictionaryOfLocations()
