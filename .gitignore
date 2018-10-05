@@ -39,3 +39,5 @@
 /20180905PeerReviewBingo/obj/*
 /20180912LinqToXml/obj/*
 /20180912LinqToXml/bin/*
+*/bin/*
+*/obj/*
