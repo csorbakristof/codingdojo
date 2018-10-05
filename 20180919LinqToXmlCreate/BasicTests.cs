@@ -50,7 +50,6 @@ namespace _20180919LinqToXmlCreate
             Assert.IsFalse(items.Any(k => k.Element("Name").Value == "Andezit"));
         }
 
-
         [TestMethod]
         public void SerializeXml()
         {
@@ -59,7 +58,6 @@ namespace _20180919LinqToXmlCreate
             Assert.IsTrue(str.Contains(@"<Location>Velencei-hg.</Location>"));
             Assert.IsFalse(str.Contains("Aragonit"));
         }
-
 
         [TestMethod]
         public void ParseXmlFromString()
@@ -73,7 +71,6 @@ namespace _20180919LinqToXmlCreate
             Assert.IsTrue(xml.Descendants("item").Any(x => x.Value == "Egy"));
             Assert.IsFalse(xml.Descendants("item").Any(x => x.Value == "Három"));
         }
-
 
         [TestMethod]
         public void ObjectSerializationAndDeserialization()
