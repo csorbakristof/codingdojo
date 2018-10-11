@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace _20180806SpirographLib
 {
-    public class RotatingStroke : Stroke
+    public class RotatingStroke : IStroke
     {
-        private Stroke delegateStroke;
+        private IStroke delegateStroke;
         public double AngularSpeed { get; set; }
         public double Radius { get; set; }
-        public RotatingStroke(Stroke delegateStroke, double angularSpeed, double radius)
+        public RotatingStroke(IStroke delegateStroke, double angularSpeed, double radius)
         {
             this.delegateStroke = delegateStroke;
             this.AngularSpeed = angularSpeed;

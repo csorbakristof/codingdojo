@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace _20180806SpirographLib
 {
-    public class PolyStroke : Stroke
+    public class PolyStroke : IStroke
     {
         protected List<SPoint> points = new List<SPoint>();
 

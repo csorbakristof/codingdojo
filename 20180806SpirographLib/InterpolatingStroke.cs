@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace _20180806SpirographLib
 {
-    public class InterpolatingStroke : Stroke
+    public class InterpolatingStroke : IStroke
     {
-        private Stroke delegateStroke;
-        public InterpolatingStroke(Stroke delegateStroke)
+        private IStroke delegateStroke;
+        public InterpolatingStroke(IStroke delegateStroke)
         {
             this.delegateStroke = delegateStroke;
         }
@@ -49,12 +49,12 @@ namespace _20180806SpirographLib
             };
         }
 
-        protected byte InterpolateValue(byte a, byte b, int n, int i)
+        protected static byte InterpolateValue(byte a, byte b, int n, int i)
         {
             return (byte)InterpolateValue((int)a,(int)b,n,i);
         }
 
-        protected int InterpolateValue(int a, int b, int n, int i)
+        protected static int InterpolateValue(int a, int b, int n, int i)
         {
             double start = (double)a;
             double step = ((double)b - (double)a) / (double)(n - 1);

@@ -75,7 +75,7 @@ namespace _20180806SpirographTests
 
         private class TestInterpolatingStroke : InterpolatingStroke
         {
-            public TestInterpolatingStroke(Stroke delegateStroke) : base(delegateStroke)
+            public TestInterpolatingStroke(IStroke delegateStroke) : base(delegateStroke)
             {
             }
             public new System.Collections.Generic.IEnumerable<SPoint> GetPointsBetween(SPoint start, SPoint end, bool skipStartingPoint = false)
@@ -85,7 +85,7 @@ namespace _20180806SpirographTests
 
             public new byte InterpolateValue(byte a, byte b, int n, int i)
             {
-                return base.InterpolateValue(a, b, n, i);
+                return InterpolatingStroke.InterpolateValue(a, b, n, i);
             }
         }
     }

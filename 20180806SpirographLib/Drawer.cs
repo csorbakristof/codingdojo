@@ -9,7 +9,7 @@ namespace _20180806SpirographLib
 {
     public class Drawer
     {
-        public void Draw(Mat img, Stroke stroke, bool connectPoints)
+        public void Draw(Mat img, IStroke stroke, bool connectPoints)
         {
             Draw(img, stroke.ToArray(), connectPoints);
         }

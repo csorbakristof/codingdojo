@@ -11,12 +11,12 @@ namespace _20180806SpirographTests
             return new SPoint(basePoint.X + xShift, basePoint.Y + yShift, basePoint.Color);
         }
 
-        public static void AssertPointPresence(Stroke s, SPoint p, int count = 1)
+        public static void AssertPointPresence(IStroke s, SPoint p, int count = 1)
         {
             AssertPointPresence(s.ToArray(), p, count);
         }
 
-        public static void AssertPointPresence(Stroke s, SPoint[] points, int count = 1)
+        public static void AssertPointPresence(IStroke s, SPoint[] points, int count = 1)
         {
             AssertPointPresence(s.ToArray(), points, count);
         }

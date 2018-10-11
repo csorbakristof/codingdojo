@@ -5,12 +5,12 @@ using OpenCvSharp;
 
 namespace _20180806SpirographLib
 {
-    public class DashedStroke : Stroke
+    public class DashedStroke : IStroke
     {
-        private Stroke delegateStroke;
+        private IStroke delegateStroke;
         private int periodLength;
 
-        public DashedStroke(Stroke delegateStroke, int periodLength)
+        public DashedStroke(IStroke delegateStroke, int periodLength)
         {
             this.delegateStroke = delegateStroke;
             this.periodLength = periodLength;

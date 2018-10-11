@@ -3,7 +3,7 @@ using OpenCvSharp;
 
 namespace _20180806SpirographLib
 {
-    public interface Stroke : IEnumerable<SPoint>
+    public interface IStroke : IEnumerable<SPoint>
     {
     }
 }

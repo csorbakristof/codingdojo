@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace _20180806SpirographLib
 {
-    public class StrokeFactory
+    public static class StrokeFactory
     {
-        public static Stroke CreateInterpolatingStroke(SPoint[] controlPoints, int NumberOfIterations=1)
+        public static IStroke CreateInterpolatingStroke(SPoint[] controlPoints, int numberOfIterations=1)
         {
             var ps = new PolyStroke(controlPoints);
-            ps.NumberOfIterations = NumberOfIterations;
+            ps.NumberOfIterations = numberOfIterations;
             return new InterpolatingStroke(ps);
         }
 
-        public static Stroke CreateRotatingStroke(SPoint[] controlPoints, double angularSpeed, double radius, int NumberOfIterations = 1)
+        public static IStroke CreateRotatingStroke(SPoint[] controlPoints, double angularSpeed, double radius, int NumberOfIterations = 1)
         {
             var ps = new PolyStroke(controlPoints);
             ps.NumberOfIterations = NumberOfIterations;

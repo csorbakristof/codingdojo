@@ -11,7 +11,7 @@ namespace _20180806SpirographLib
     {
         private List<IEnumerator<SPoint>> enumerators = new List<IEnumerator<SPoint>>();
 
-        public void AddStrokeAsTimeDependentControlPoint(Stroke stroke)
+        public void AddStrokeAsTimeDependentControlPoint(IStroke stroke)
         {
             enumerators.Add(stroke.GetEnumerator());
         }
