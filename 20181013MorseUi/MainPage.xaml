@@ -1,0 +1,34 @@
+﻿<Page
+    x:Class="_20181013MorseUi.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:_20181013MorseUi"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <RelativePanel>
+            <Canvas x:Name="Canvas" MinWidth="800" MinHeight="700"
+                    RelativePanel.AlignTopWithPanel="True"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True">
+                <Path x:Name="MorseCodePath"
+                      Fill="Gold" Stroke="Black" StrokeThickness="5"
+                      Data="M50,50 L650,50 L850,650 L50,650 L50,50"
+                      StrokeDashArray="{x:Bind Mode=TwoWay, Path=ViewModel.MorseLineDashArray}"/>
+            </Canvas>
+            <TextBox x:Name="TextToConvert" MinWidth="300"
+                     RelativePanel.Below="Canvas"
+                     RelativePanel.AlignLeftWithPanel="True" />
+            <Button x:Name="UpdateButton"
+                    Content="Update"
+                    Command="{x:Bind Path=ViewModel.UpdateCommand}"
+                    CommandParameter="{x:Bind Mode=TwoWay, Path=TextToConvert.Text}"
+                    RelativePanel.Below="Canvas"
+                    RelativePanel.RightOf="TextToConvert"/>
+        </RelativePanel>
+
+    </Grid>
+</Page>
