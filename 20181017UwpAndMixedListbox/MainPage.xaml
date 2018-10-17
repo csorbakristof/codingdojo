@@ -19,7 +19,8 @@
                 <DataTemplate x:Key="RotatingStrokeDataTemplate" x:DataType="local:RotatingStroke">
                     <StackPanel BorderBrush="Pink" BorderThickness="1">
                         <TextBlock Text="{x:Bind Title}" />
-                        <TextBlock Text="{x:Bind RotationCount}" />
+                        <TextBlock Text="{x:Bind Mode=TwoWay, Path=RotationCount}" />
+                        <Button Content="Increase" Command="{x:Bind IncreaseCountCommand}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.Resources>
