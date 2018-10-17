@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="_20181017UwpAndMixedListbox.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:_20181017UwpAndMixedListbox"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <ListView ItemsSource="{x:Bind Path=StrokeList}">
+            <ListView.Resources>
+                <DataTemplate x:Key="StrokeDataTemplate" x:DataType="local:Stroke">
+                    <StackPanel BorderBrush="Azure" BorderThickness="1">
+                        <TextBlock Text="{x:Bind Title}" />
+                    </StackPanel>
+                </DataTemplate>
+                <DataTemplate x:Key="RotatingStrokeDataTemplate" x:DataType="local:RotatingStroke">
+                    <StackPanel BorderBrush="Pink" BorderThickness="1">
+                        <TextBlock Text="{x:Bind Title}" />
+                        <TextBlock Text="{x:Bind RotationCount}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.Resources>
+            
+            <ListView.ItemTemplateSelector>
+                <local:StrokeDataTemplateSelector>
+                    <local:StrokeDataTemplateSelector.Matches>
+                        <local:TemplateMatch
+                            TargetType="_20181017UwpAndMixedListbox.Stroke"
+                            Template="{StaticResource StrokeDataTemplate}"/>
+                        <local:TemplateMatch
+                            TargetType="_20181017UwpAndMixedListbox.RotatingStroke"
+                            Template="{StaticResource RotatingStrokeDataTemplate}"/>
+                    </local:StrokeDataTemplateSelector.Matches>
+                </local:StrokeDataTemplateSelector>
+            </ListView.ItemTemplateSelector>
+        </ListView>
+    </Grid>
+</Page>
