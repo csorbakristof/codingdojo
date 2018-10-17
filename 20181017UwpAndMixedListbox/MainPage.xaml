@@ -9,34 +9,32 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListView ItemsSource="{x:Bind Path=StrokeList}">
-            <ListView.Resources>
-                <DataTemplate x:Key="StrokeDataTemplate" x:DataType="local:Stroke">
-                    <StackPanel BorderBrush="Azure" BorderThickness="1">
-                        <TextBlock Text="{x:Bind Title}" />
-                    </StackPanel>
-                </DataTemplate>
-                <DataTemplate x:Key="RotatingStrokeDataTemplate" x:DataType="local:RotatingStroke">
-                    <StackPanel BorderBrush="Pink" BorderThickness="1">
-                        <TextBlock Text="{x:Bind Title}" />
-                        <TextBlock Text="{x:Bind Mode=TwoWay, Path=RotationCount}" />
-                        <Button Content="Increase" Command="{x:Bind IncreaseCountCommand}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.Resources>
-            
-            <ListView.ItemTemplateSelector>
-                <local:StrokeDataTemplateSelector>
-                    <local:StrokeDataTemplateSelector.Matches>
-                        <local:TemplateMatch
+        <Grid.Resources>
+            <DataTemplate x:Key="StrokeDataTemplate" x:DataType="local:Stroke">
+                <StackPanel BorderBrush="Azure" BorderThickness="1">
+                    <TextBlock Text="{x:Bind Title}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="RotatingStrokeDataTemplate" x:DataType="local:RotatingStroke">
+                <StackPanel BorderBrush="Pink" BorderThickness="1">
+                    <TextBlock Text="{x:Bind Title}" />
+                    <TextBlock Text="{x:Bind Mode=TwoWay, Path=RotationCount}" />
+                    <Button Content="Increase" Command="{x:Bind IncreaseCountCommand}"/>
+                </StackPanel>
+            </DataTemplate>
+            <local:StrokeDataTemplateSelector x:Key="CustomDataTemplateSelector">
+                <local:StrokeDataTemplateSelector.Matches>
+                    <local:TemplateMatch
                             TargetType="_20181017UwpAndMixedListbox.Stroke"
                             Template="{StaticResource StrokeDataTemplate}"/>
-                        <local:TemplateMatch
+                    <local:TemplateMatch
                             TargetType="_20181017UwpAndMixedListbox.RotatingStroke"
                             Template="{StaticResource RotatingStrokeDataTemplate}"/>
-                    </local:StrokeDataTemplateSelector.Matches>
-                </local:StrokeDataTemplateSelector>
-            </ListView.ItemTemplateSelector>
-        </ListView>
+                </local:StrokeDataTemplateSelector.Matches>
+            </local:StrokeDataTemplateSelector>
+        </Grid.Resources>
+
+        <ListView ItemsSource="{x:Bind Path=StrokeList}"
+                  ItemTemplateSelector="{StaticResource CustomDataTemplateSelector}"/>
     </Grid>
 </Page>
