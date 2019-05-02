@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "20190502AniRejtvenyGeneratora": {
+      "commandName": "Project",
+      "commandLineArgs": "e:\\temp\\democonfig.json e:\\temp\\text1.tex"
+    }
+  }
+}

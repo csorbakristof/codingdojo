@@ -104,7 +104,7 @@ namespace _20190502AniRejtvenyGeneratora
                         sb.Append(@" & ");
                     if (puzzle[row, col] == MaskCharacter)
                     {
-                        sb.Append(@"\blacksquare");
+                        sb.Append(@"$\blacksquare$");
                     }
                     else
                     {
@@ -144,33 +144,54 @@ namespace _20190502AniRejtvenyGeneratora
             public string[] Solutions { get; set; }
         }
 
-        //private static Config ReadConfig(string configfilename)
-        //{
-        //    string json = File.ReadAllText(configfilename);
-        //    Config conf = JsonConvert.DeserializeObject<Config>(json);
-        //    return conf;
+        private static Config ReadConfig(string configfilename)
+        {
+            string json = File.ReadAllText(configfilename);
+            Config conf = JsonConvert.DeserializeObject<Config>(json);
+            return conf;
+        }
 
+        //private static void WriteConfig(Config conf, string configfilename)
+        //{
+        //    string json = JsonConvert.SerializeObject(conf, Newtonsoft.Json.Formatting.Indented);
+        //    File.WriteAllText(configfilename, json);
         //}
 
         static void Main(string[] args)
         {
-            Config conf = new Config()
+            // Example command line parameter:
+            //  e:\temp\democonfig.json e:\temp\text1.tex
+
+            const bool localtesting = false; // No need for command line arguments
+
+            Config conf = null;
+            string resultFilename = null;
+            if (localtesting)
             {
-                AdditionalMaskingPercentage = 50,
-                PuzzleSize = 5,
-                Solutions = new string[]
+                conf = new Config()
                 {
+                    AdditionalMaskingPercentage = 50,
+                    PuzzleSize = 5,
+                    Solutions = new string[]
+                    {
                     "EZEGYTITOK",
                     "EZISEGYTITOK",
                     "EZMASIKTITOK",
                     "EZISTITOK"
+                    }
+                };
+                resultFilename = @"e:\temp\text1.tex";
+            }
+            else
+            {
+                if (args.Length < 2)
+                {
+                    Console.WriteLine("Command line parameters: <config filename> <output tex filename>");
+                    return;
                 }
-            };
-
-
-            //const string configFilename = @"e:\temp\config.json";
-            const string resultFilename = @"e:\temp\text1.tex";
-            //Config conf = ReadConfig(configFilename);
+                conf = ReadConfig(args[0]);
+                resultFilename = args[1];
+            }
             int solutionLength = conf.Solutions.Select(s => s.Length).Max();
 
             using (TextWriter writer = new StreamWriter(resultFilename))
